@@ -1,0 +1,1558 @@
+{
+  "generatedAt": "2026-06-20T14:22:47.566Z",
+  "final50": [
+    {
+      "rank": 1,
+      "name": "restaurant.m",
+      "tabelog": {
+        "score": "3.94",
+        "reviews": "249",
+        "saves": "9172",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23085555/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23085555/party/"
+      },
+      "google": {
+        "name": "restaurant.m",
+        "rating": "4.6",
+        "reviews": "57",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄２丁目１５−１６ コンフォート栄 2階 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "course",
+          "plan_id": "269106636",
+          "name": "[Dinner]Menu restaurant.m"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan_id=269106636&rcd=23085555&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "イタリアン・洋食・バル",
+      "address": "愛知県名古屋市中区栄2-15-16 コンフォート栄 2F",
+      "lat": 35.16453553732664,
+      "lng": 136.9021926800113
+    },
+    {
+      "rank": 2,
+      "name": "肉ト魚 大衆酒場 ひとめぼれ 栄店",
+      "tabelog": {
+        "score": "3.37",
+        "reviews": "166",
+        "saves": "8719",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23087654/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23087654/party/"
+      },
+      "google": {
+        "name": "大衆酒場ひとめぼれ 栄店",
+        "rating": "4.7",
+        "reviews": "7,483",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１１−１２ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23087654&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "和食・海鮮",
+      "address": "愛知県名古屋市中区栄3-11-12 1F",
+      "lat": 35.1663299931286,
+      "lng": 136.90331107268648
+    },
+    {
+      "rank": 3,
+      "name": "ウォンシャチキン プレミアム マルエイガレリア店",
+      "tabelog": {
+        "score": "3.37",
+        "reviews": "176",
+        "saves": "3450",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23081431/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23081431/party/"
+      },
+      "google": {
+        "name": "ウォンシャチキン プレミアム マルエイガレリア店",
+        "rating": "4.7",
+        "reviews": "3,523",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目３−１ マルエイガレリア 3F ぐるなびフードホールWYE "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23081431&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "韓国・アジアン・各国料理",
+      "address": "愛知県名古屋市中区栄3-3-1 マルエイガレリア 3F ぐるなびフードホールWYE",
+      "lat": 35.168388237325075,
+      "lng": 136.90489558004833
+    },
+    {
+      "rank": 4,
+      "name": "大衆馬肉酒場 うまる 栄住吉店",
+      "tabelog": {
+        "score": "3.57",
+        "reviews": "140",
+        "saves": "4484",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23093010/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23093010/party/"
+      },
+      "google": {
+        "name": "大衆馬肉酒場 うまる 栄住吉店",
+        "rating": "4.7",
+        "reviews": "656",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目２−２９ 長谷川ビル 2F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23093010&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-2-29 長谷川ビル 2F",
+      "lat": 35.16770624209421,
+      "lng": 136.90372791914686
+    },
+    {
+      "rank": 5,
+      "name": "鴨しゃぶ粋玄",
+      "tabelog": {
+        "score": "3.50",
+        "reviews": "151",
+        "saves": "6987",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23082460/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23082460/party/"
+      },
+      "google": {
+        "name": "鴨しゃぶ粋玄",
+        "rating": "4.8",
+        "reviews": "488",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１３−２８ 角忠ビル Ｂ１Ｆ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23082460&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-13-28 角忠ビル B1F",
+      "lat": 35.16610703732653,
+      "lng": 136.90497398002523
+    },
+    {
+      "rank": 6,
+      "name": "陳麻婆豆腐 ラシック店",
+      "tabelog": {
+        "score": "3.35",
+        "reviews": "370",
+        "saves": "4360",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23001004/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23001004/party/"
+      },
+      "google": {
+        "name": "陳麻婆豆腐 名古屋三越ラシック店",
+        "rating": "4.6",
+        "reviews": "1,003",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目６−１ ラシック ８Ｆ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23001004&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "中華・火鍋・点心",
+      "address": "愛知県名古屋市中区栄3-6-1 ラシック 8F",
+      "lat": 35.16737323732674,
+      "lng": 136.90815678003577
+    },
+    {
+      "rank": 7,
+      "name": "和牛焼肉 ワンダフィレ",
+      "tabelog": {
+        "score": "3.70",
+        "reviews": "298",
+        "saves": "16194",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23072213/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23072213/party/"
+      },
+      "google": {
+        "name": "和牛焼肉ワンダフィレ",
+        "rating": "4.4",
+        "reviews": "160",
+        "address": "住所: 〒460-0003 愛知県名古屋市中区錦３丁目１７−２４ ミヤコビル 2F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23072213&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区錦3-17-24 都ビル 2F",
+      "lat": 35.17007493732424,
+      "lng": 136.90571768006478
+    },
+    {
+      "rank": 8,
+      "name": "昇家 正々堂",
+      "tabelog": {
+        "score": "3.55",
+        "reviews": "509",
+        "saves": "21930",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23007039/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23007039/party/"
+      },
+      "google": {
+        "name": "昇家 正々堂 栄 矢場町 焼肉",
+        "rating": "4.3",
+        "reviews": "484",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１３−７ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23007039&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄三丁目13-7",
+      "lat": 35.166673337326365,
+      "lng": 136.90558278003053
+    },
+    {
+      "rank": 9,
+      "name": "炉端焼き燻銀 栄店",
+      "tabelog": {
+        "score": "3.37",
+        "reviews": "138",
+        "saves": "6729",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23085614/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23085614/party/"
+      },
+      "google": {
+        "name": "炉端焼き 燻銀 栄店",
+        "rating": "4.7",
+        "reviews": "968",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目４−１０５ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23085614&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "和食・海鮮",
+      "address": "愛知県名古屋市中区栄3-4-105",
+      "lat": 35.16802973732573,
+      "lng": 136.90629978004375
+    },
+    {
+      "rank": 10,
+      "name": "linda",
+      "tabelog": {
+        "score": "3.44",
+        "reviews": "196",
+        "saves": "13670",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23085168/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23085168/party/"
+      },
+      "google": {
+        "name": "linda",
+        "rating": "4.6",
+        "reviews": "462",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄５丁目１２−２９ 東海伸銅ビル 2F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23085168&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "イタリアン・洋食・バル",
+      "address": "愛知県名古屋市中区栄5-12-29 東海伸銅ビル 2F",
+      "lat": 35.163716737330084,
+      "lng": 136.91131957999664
+    },
+    {
+      "rank": 11,
+      "name": "旬醸まほろば",
+      "tabelog": {
+        "score": "3.51",
+        "reviews": "228",
+        "saves": "6226",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23090205/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23090205/party/"
+      },
+      "google": {
+        "name": "旬醸 まほろば",
+        "rating": "4.6",
+        "reviews": "179",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１０−１３ Wビル １F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23090205&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-10-13 Wビル 1F",
+      "lat": 35.16723433984823,
+      "lng": 136.90325409133655
+    },
+    {
+      "rank": 12,
+      "name": "晩餐 かぼす",
+      "tabelog": {
+        "score": "3.59",
+        "reviews": "212",
+        "saves": "10836",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23091836/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23091836/party/"
+      },
+      "google": {
+        "name": "かぼす",
+        "rating": "4.6",
+        "reviews": "68",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄４丁目３−７ 1階 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23091836&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "居酒屋・ダイニングバー",
+      "address": "愛知県名古屋市中区栄4-3-7 シエルブルー 1F",
+      "lat": 35.16848618813247,
+      "lng": 136.91147806120648
+    },
+    {
+      "rank": 13,
+      "name": "ホルモン焼肉 富や 栄店",
+      "tabelog": {
+        "score": "3.52",
+        "reviews": "257",
+        "saves": "13618",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23076537/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23076537/party/"
+      },
+      "google": {
+        "name": "ホルモン焼肉 富や 栄店",
+        "rating": "4.5",
+        "reviews": "213",
+        "address": "住所: 〒460-0004 愛知県名古屋市中区新栄町３丁目８ 今川ビル ３F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23076537&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区新栄町3-8 今川ビル 3F",
+      "lat": 35.16958193732709,
+      "lng": 136.91362928005427
+    },
+    {
+      "rank": 14,
+      "name": "うに横丁",
+      "tabelog": {
+        "score": "3.43",
+        "reviews": "281",
+        "saves": "13783",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23069268/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23069268/party/"
+      },
+      "google": {
+        "name": "うに横丁",
+        "rating": "4.5",
+        "reviews": "376",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄５丁目５−１３ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23069268&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "寿司・海鮮",
+      "address": "愛知県名古屋市中区栄5-5-13",
+      "lat": 35.16598953732948,
+      "lng": 136.9140231800177
+    },
+    {
+      "rank": 15,
+      "name": "刺しと土鍋 たてがみ 栄本店",
+      "tabelog": {
+        "score": "3.44",
+        "reviews": "293",
+        "saves": "15028",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23060138/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23060138/party/"
+      },
+      "google": {
+        "name": "たてがみ 栄本店",
+        "rating": "4.3",
+        "reviews": "1,127",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１３−６ オー・ド・ヴィー栄 2F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23060138&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-13-6 オー・ド・ヴィー栄 2F",
+      "lat": 35.16658903732639,
+      "lng": 136.90548028002974
+    },
+    {
+      "rank": 16,
+      "name": "手打ち蕎麦とダチョウ料理 蕎麦島",
+      "tabelog": {
+        "score": "3.63",
+        "reviews": "161",
+        "saves": "5583",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23050754/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23050754/party/"
+      },
+      "google": {
+        "name": "手打ち蕎麦とダチョウ料理 蕎麦島(旧店名:デニケン's2号店)",
+        "rating": "4.5",
+        "reviews": "95",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目９−２２ グランドビル 2F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23050754&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-9-22 グランドビル 2F",
+      "lat": 35.166901637325765,
+      "lng": 136.90413188003384
+    },
+    {
+      "rank": 17,
+      "name": "炭火焼肉 匠",
+      "tabelog": {
+        "score": "3.57",
+        "reviews": "198",
+        "saves": "5104",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23090338/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23090338/party/"
+      },
+      "google": {
+        "name": "炭火焼肉 匠~takumi~",
+        "rating": "4.5",
+        "reviews": "102",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１−１８ ２３ビル B2F 住吉町23ビルB1F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23090338&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-1-18 23ビル B1F",
+      "lat": 35.167765950734946,
+      "lng": 136.90331600616264
+    },
+    {
+      "rank": 18,
+      "name": "もつ鍋田しゅう 名古屋店",
+      "tabelog": {
+        "score": "3.40",
+        "reviews": "186",
+        "saves": "9763",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23072395/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23072395/party/"
+      },
+      "google": {
+        "name": "もつ鍋田しゅう 名古屋店",
+        "rating": "4.6",
+        "reviews": "283",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目９−２ Gems栄 8F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23072395&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-9-2 GEM栄 8F",
+      "lat": 35.167372946128175,
+      "lng": 136.90382625965856
+    },
+    {
+      "rank": 19,
+      "name": "大衆飯酒場 ワイロ",
+      "tabelog": {
+        "score": "3.44",
+        "reviews": "238",
+        "saves": "16048",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23081577/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23081577/party/"
+      },
+      "google": {
+        "name": "大衆飯酒場 ワイロ",
+        "rating": "4.5",
+        "reviews": "252",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄５丁目５−３３ オオタビル 1F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23081577&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "中華・火鍋・点心",
+      "address": "愛知県名古屋市中区栄5-5-33 オオタビル 1F",
+      "lat": 35.16576733732925,
+      "lng": 136.9128142800163
+    },
+    {
+      "rank": 20,
+      "name": "セマウル食堂 名古屋栄店",
+      "tabelog": {
+        "score": "3.38",
+        "reviews": "145",
+        "saves": "5334",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23083268/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23083268/party/"
+      },
+      "google": {
+        "name": "セマウル食堂 名古屋栄店",
+        "rating": "4.5",
+        "reviews": "633",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目３１−１９ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23083268&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "韓国・アジアン・各国料理",
+      "address": "愛知県名古屋市中区栄3-31-19",
+      "lat": 35.16310363732949,
+      "lng": 136.9082523799926
+    },
+    {
+      "rank": 21,
+      "name": "欧州料理 VIVI 栄",
+      "tabelog": {
+        "score": "3.51",
+        "reviews": "203",
+        "saves": "11035",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23076818/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23076818/party/"
+      },
+      "google": {
+        "name": "欧州料理 VIVI 栄",
+        "rating": "4.3",
+        "reviews": "376",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目２１−２９ アートビル "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23076818&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "イタリアン・洋食・バル",
+      "address": "愛知県名古屋市中区栄3-21-29",
+      "lat": 35.16484933732659,
+      "lng": 136.90262908001418
+    },
+    {
+      "rank": 22,
+      "name": "とり焼肉鳥壱 栄女子大店",
+      "tabelog": {
+        "score": "3.55",
+        "reviews": "271",
+        "saves": "7077",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23082426/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23082426/party/"
+      },
+      "google": {
+        "name": "鳥壱 栄女子大店",
+        "rating": "4.3",
+        "reviews": "145",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄４丁目１８−８ 第２秀和ビル 1F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23082426&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄4-18-8 第2秀和ビル 1F",
+      "lat": 35.16659790088918,
+      "lng": 136.9123930838692
+    },
+    {
+      "rank": 23,
+      "name": "そばまえ粋玄",
+      "tabelog": {
+        "score": "3.46",
+        "reviews": "285",
+        "saves": "10308",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23082459/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23082459/party/"
+      },
+      "google": {
+        "name": "そばまえ粋玄",
+        "rating": "4.3",
+        "reviews": "331",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１３−２８ 角忠ビル 1F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23082459&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-13-28 角忠ビル 1F",
+      "lat": 35.16610703732653,
+      "lng": 136.90497398002523
+    },
+    {
+      "rank": 24,
+      "name": "味樹園 栄店",
+      "tabelog": {
+        "score": "3.45",
+        "reviews": "239",
+        "saves": "9955",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23057012/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23057012/party/"
+      },
+      "google": {
+        "name": "焼肉酒菜 味樹園 栄店",
+        "rating": "4.3",
+        "reviews": "476",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１９−３ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23057012&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-19-3",
+      "lat": 35.16567983732647,
+      "lng": 136.90392218002165
+    },
+    {
+      "rank": 25,
+      "name": "三軒茶屋",
+      "tabelog": {
+        "score": "3.48",
+        "reviews": "505",
+        "saves": "33126",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23075432/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23075432/party/"
+      },
+      "google": {
+        "name": "三軒茶屋",
+        "rating": "4.2",
+        "reviews": "223",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１１−１５ LRDビル 1F奥 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23075432&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "居酒屋・ダイニングバー",
+      "address": "愛知県名古屋市中区栄3-11-15 LRDビル 1F",
+      "lat": 35.16600363732604,
+      "lng": 136.9032158800254
+    },
+    {
+      "rank": 26,
+      "name": "叙々苑 名古屋栄店",
+      "tabelog": {
+        "score": "3.45",
+        "reviews": "145",
+        "saves": "1508",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23081409/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23081409/party/"
+      },
+      "google": {
+        "name": "叙々苑 名古屋栄店",
+        "rating": "4.5",
+        "reviews": "219",
+        "address": "住所: 〒460-8674 愛知県名古屋市中区栄３丁目３−１ マルエイガレリア 3階 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23081409&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-3-1 マルエイガレリア 3F",
+      "lat": 35.16852393732515,
+      "lng": 136.9054383800493
+    },
+    {
+      "rank": 27,
+      "name": "シェーネルヴォーネン",
+      "tabelog": {
+        "score": "3.55",
+        "reviews": "160",
+        "saves": "11286",
+        "url": "https://tabelog.com/aichi/A2301/A230105/23000048/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230105/23000048/party/"
+      },
+      "google": {
+        "name": "シェーネル・ヴォーネン",
+        "rating": "4.5",
+        "reviews": "68",
+        "address": "住所: 〒460-0007 愛知県名古屋市中区新栄１丁目４６−２ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23000048&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "イタリアン・洋食・バル",
+      "address": "愛知県名古屋市中区新栄1-46-2",
+      "lat": 35.16276663733212,
+      "lng": 136.91583087998387
+    },
+    {
+      "rank": 28,
+      "name": "由乃 別邸 栄住吉店",
+      "tabelog": {
+        "score": "3.55",
+        "reviews": "358",
+        "saves": "23362",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23072434/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23072434/party/"
+      },
+      "google": {
+        "name": "由乃 別邸 栄住吉店",
+        "rating": "4.2",
+        "reviews": "148",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目９−２ ジェムズ栄 10F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23072434&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-9-2 ジェムズ栄 10F",
+      "lat": 35.16744063732532,
+      "lng": 136.9038160800395
+    },
+    {
+      "rank": 29,
+      "name": "創作いなりと日本酒とおばんざい inari 栄店",
+      "tabelog": {
+        "score": "3.30",
+        "reviews": "125",
+        "saves": "7671",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23087516/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23087516/party/"
+      },
+      "google": {
+        "name": "創作いなりと日本酒とおばんざい inari 栄店",
+        "rating": "4.6",
+        "reviews": "479",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１３−２３ 寺島ビル 2F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23087516&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "和食・海鮮",
+      "address": "愛知県名古屋市中区栄3-13-23 寺島ビル 2F",
+      "lat": 35.166008670382176,
+      "lng": 136.90513010307714
+    },
+    {
+      "rank": 30,
+      "name": "ザ オイスタールーム 名古屋ラシック店",
+      "tabelog": {
+        "score": "3.49",
+        "reviews": "505",
+        "saves": "11459",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23000870/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23000870/party/"
+      },
+      "google": {
+        "name": "オイスタールーム 名古屋ラシック店",
+        "rating": "4.0",
+        "reviews": "581",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目６−１ ラシック 8階 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23000870&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "和食・海鮮",
+      "address": "愛知県名古屋市中区栄3-6-1 ラシック 8F",
+      "lat": 35.16748973732655,
+      "lng": 136.90776938003722
+    },
+    {
+      "rank": 31,
+      "name": "乙星",
+      "tabelog": {
+        "score": "3.51",
+        "reviews": "146",
+        "saves": "11515",
+        "url": "https://tabelog.com/aichi/A2301/A230102/23082867/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230102/23082867/party/"
+      },
+      "google": {
+        "name": "宮崎地鶏もも炭火焼と辛麺 乙星~オットセイ~ 栄住吉店",
+        "rating": "4.4",
+        "reviews": "152",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１０−１５ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23082867&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "居酒屋・ダイニングバー",
+      "address": "愛知県名古屋市中区栄3-10-15",
+      "lat": 35.16699693732544,
+      "lng": 136.9033202800354
+    },
+    {
+      "rank": 32,
+      "name": "十八代 光蔵 栄本店",
+      "tabelog": {
+        "score": "3.47",
+        "reviews": "366",
+        "saves": "16800",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23064707/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23064707/party/"
+      },
+      "google": {
+        "name": "十八代 光蔵",
+        "rating": "4.1",
+        "reviews": "418",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目２−１５ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23064707&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "和食・海鮮",
+      "address": "愛知県名古屋市中区栄3-2-15",
+      "lat": 35.16803163732515,
+      "lng": 136.90446288004506
+    },
+    {
+      "rank": 33,
+      "name": "しゃぶしゃぶ・創作料理居酒屋 豚吟 栄店",
+      "tabelog": {
+        "score": "3.54",
+        "reviews": "280",
+        "saves": "12950",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23052362/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23052362/party/"
+      },
+      "google": {
+        "name": "豚吟 栄店",
+        "rating": "4.1",
+        "reviews": "270",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄４丁目９−１０ 愛信プラザビル 2F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23052362&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄4-9-10 愛信プラザビル 2F",
+      "lat": 35.16799643732806,
+      "lng": 136.9135219800383
+    },
+    {
+      "rank": 34,
+      "name": "大衆焼肉 焼肉エース 栄住吉店",
+      "tabelog": {
+        "score": "3.51",
+        "reviews": "212",
+        "saves": "5675",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23090569/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23090569/party/"
+      },
+      "google": {
+        "name": "大衆焼肉 焼肉エース 栄住吉店",
+        "rating": "4.2",
+        "reviews": "246",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１２−２１−２ 寿子ビル ２階 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23090569&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-12-21 寿子ビル 2F・3F",
+      "lat": 35.165953941292884,
+      "lng": 136.90440183274643
+    },
+    {
+      "rank": 35,
+      "name": "ホンデポチャ 名古屋大須店",
+      "tabelog": {
+        "score": "3.38",
+        "reviews": "110",
+        "saves": "4744",
+        "url": "https://tabelog.com/aichi/A2301/A230105/23093359/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230105/23093359/party/"
+      },
+      "google": {
+        "name": "ホンデポチャ 名古屋大須店",
+        "rating": "4.5",
+        "reviews": "252",
+        "address": "住所: 日雄ビル 2F, ３丁目-３１-４２ 大須 中区 名古屋市 愛知県 460-0011 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23093359&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区大須3-31-42 ニチュウビル 2F",
+      "lat": 35.15836698896033,
+      "lng": 136.9051998935624
+    },
+    {
+      "rank": 36,
+      "name": "Table For Tomorrow",
+      "tabelog": {
+        "score": "3.53",
+        "reviews": "194",
+        "saves": "4036",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23085494/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23085494/party/"
+      },
+      "google": {
+        "name": "Table For Tomorrow",
+        "rating": "4.3",
+        "reviews": "100",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄５丁目１５−１９ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "course",
+          "plan_id": "271275352",
+          "name": "Lively：ライブリー【全5品+食後のお飲み物】+ 乾杯ドリンク"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan_id=271275352&rcd=23085494&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "イタリアン・洋食・バル",
+      "address": "愛知県名古屋市中区栄5-15-19 TIAD, AUTOGRAPH COLLECTION 5F",
+      "lat": 35.16389713732948,
+      "lng": 136.90978477999954
+    },
+    {
+      "rank": 37,
+      "name": "ワイン渡辺。",
+      "tabelog": {
+        "score": "3.48",
+        "reviews": "540",
+        "saves": "11021",
+        "url": "https://tabelog.com/aichi/A2301/A230105/23054394/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230105/23054394/party/"
+      },
+      "google": {
+        "name": "ワイン渡辺。大須店",
+        "rating": "3.9",
+        "reviews": "640",
+        "address": "住所: 〒460-0011 愛知県名古屋市中区大須３丁目３５−２４ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23054394&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "イタリアン・洋食・バル",
+      "address": "愛知県名古屋市中区大須3-35-24",
+      "lat": 35.15848843733091,
+      "lng": 136.90356497994927
+    },
+    {
+      "rank": 38,
+      "name": "焼肉陽山道 名古屋パルコ店",
+      "tabelog": {
+        "score": "3.38",
+        "reviews": "156",
+        "saves": "3372",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23070119/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23070119/party/"
+      },
+      "google": {
+        "name": "焼肉陽山道 名古屋パルコ店",
+        "rating": "4.4",
+        "reviews": "249",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目２９−１ 名古屋パルコ西館 7F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23070119&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-29-1 名古屋パルコ西館 7F",
+      "lat": 35.1636359373289,
+      "lng": 136.9074483799985
+    },
+    {
+      "rank": 39,
+      "name": "焼肉ホルモン せいご 栄店",
+      "tabelog": {
+        "score": "3.38",
+        "reviews": "145",
+        "saves": "10125",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23053535/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23053535/party/"
+      },
+      "google": {
+        "name": "焼肉ホルモン せいご 栄店",
+        "rating": "4.4",
+        "reviews": "264",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目８−１０３ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23053535&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-8-103",
+      "lat": 35.167299737325784,
+      "lng": 136.90498218003728
+    },
+    {
+      "rank": 40,
+      "name": "天ぷら ひさご ラシック店",
+      "tabelog": {
+        "score": "3.39",
+        "reviews": "174",
+        "saves": "6236",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23000858/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23000858/party/"
+      },
+      "google": {
+        "name": "ひさご 名古屋ラシック店",
+        "rating": "4.3",
+        "reviews": "355",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目６−１ 8F ラシック "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23000858&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "和食・海鮮",
+      "address": "愛知県名古屋市中区栄3-6-1 ラシック 8Ｆ",
+      "lat": 35.1676555373265,
+      "lng": 136.90795428003875
+    },
+    {
+      "rank": 41,
+      "name": "yaab thai",
+      "tabelog": {
+        "score": "3.57",
+        "reviews": "544",
+        "saves": "28624",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23078088/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23078088/party/"
+      },
+      "google": {
+        "name": "yaab thai",
+        "rating": "3.9",
+        "reviews": "170",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１３−６ B1 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23078088&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "中華・火鍋・点心",
+      "address": "愛知県名古屋市中区栄3-13-6 LEXT HOUSE B1F",
+      "lat": 35.1665556373264,
+      "lng": 136.90540448002946
+    },
+    {
+      "rank": 42,
+      "name": "Alan.",
+      "tabelog": {
+        "score": "3.60",
+        "reviews": "498",
+        "saves": "27240",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23072433/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23072433/party/"
+      },
+      "google": {
+        "name": "Alan. latin diner & burn",
+        "rating": "3.9",
+        "reviews": "139",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目９−２ ジェムズ栄 3F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23072433&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-9-2 ジェムズ栄 3F",
+      "lat": 35.16744063732532,
+      "lng": 136.9038160800395
+    },
+    {
+      "rank": 43,
+      "name": "KOSF Korea Seoul Food",
+      "tabelog": {
+        "score": "3.43",
+        "reviews": "188",
+        "saves": "6086",
+        "url": "https://tabelog.com/aichi/A2301/A230105/23045617/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230105/23045617/party/"
+      },
+      "google": {
+        "name": "コスフ 大須本店",
+        "rating": "4.2",
+        "reviews": "358",
+        "address": "住所: 〒460-0011 愛知県名古屋市中区大須４丁目２−４１ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23045617&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区大須4-2-41",
+      "lat": 35.16030323733071,
+      "lng": 136.9065178799655
+    },
+    {
+      "rank": 44,
+      "name": "ももまる",
+      "tabelog": {
+        "score": "3.46",
+        "reviews": "239",
+        "saves": "12834",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23038755/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23038755/party/"
+      },
+      "google": {
+        "name": "拉麺居酒屋ももまる",
+        "rating": "4.1",
+        "reviews": "240",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１０−１５ 1階 "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23038755&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "居酒屋・ダイニングバー",
+      "address": "愛知県名古屋市中区栄3-10-15 メーフラワービル 1F",
+      "lat": 35.1670348373254,
+      "lng": 136.9032725800358
+    },
+    {
+      "rank": 45,
+      "name": "昇家 矢場町店",
+      "tabelog": {
+        "score": "3.32",
+        "reviews": "159",
+        "saves": "3969",
+        "url": "https://tabelog.com/aichi/A2301/A230105/23009255/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230105/23009255/party/"
+      },
+      "google": {
+        "name": "昇家 矢場町 焼肉",
+        "rating": "4.3",
+        "reviews": "423",
+        "address": "住所: 〒460-0011 愛知県名古屋市中区大須４丁目２−３１ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23009255&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区大須四丁目2-31",
+      "lat": 35.16017753733097,
+      "lng": 136.90708607996385
+    },
+    {
+      "rank": 46,
+      "name": "お肉と野菜とクラフトビール nagi 栄店",
+      "tabelog": {
+        "score": "3.36",
+        "reviews": "155",
+        "saves": "8284",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23080523/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23080523/party/"
+      },
+      "google": {
+        "name": "cafe&dinning nagi",
+        "rating": "4.2",
+        "reviews": "501",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目４−２７ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23080523&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "居酒屋・ダイニングバー",
+      "address": "愛知県名古屋市中区栄3-4-27",
+      "lat": 35.167968137325644,
+      "lng": 136.90592778004336
+    },
+    {
+      "rank": 47,
+      "name": "はなぶさ精肉店",
+      "tabelog": {
+        "score": "3.43",
+        "reviews": "190",
+        "saves": "6080",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23082353/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23082353/party/"
+      },
+      "google": {
+        "name": "はなぶさ精肉店",
+        "rating": "4.3",
+        "reviews": "73",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１２−２１ 岩田テナントビル 2F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23082353&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "焼肉・肉料理",
+      "address": "愛知県名古屋市中区栄3-12-21 岩田テナントビル 2F",
+      "lat": 35.16590133732644,
+      "lng": 136.90428438002363
+    },
+    {
+      "rank": 48,
+      "name": "渡辺",
+      "tabelog": {
+        "score": "3.48",
+        "reviews": "524",
+        "saves": "23780",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23052003/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23052003/party/"
+      },
+      "google": {
+        "name": "渡辺",
+        "rating": "3.8",
+        "reviews": "303",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄４丁目５−６ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23052003&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "イタリアン・洋食・バル",
+      "address": "愛知県名古屋市中区栄4-5-6",
+      "lat": 35.16906523732707,
+      "lng": 136.9125481800498
+    },
+    {
+      "rank": 49,
+      "name": "担々麺 錦城 住吉店",
+      "tabelog": {
+        "score": "3.42",
+        "reviews": "264",
+        "saves": "9020",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23033921/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23033921/party/"
+      },
+      "google": {
+        "name": "担々麺 錦城 住吉店",
+        "rating": "4.0",
+        "reviews": "308",
+        "address": "住所: 〒460-0008 愛知県名古屋市中区栄３丁目１９−３０ "
+      },
+      "reservation": {
+        "route": {
+          "kind": "course",
+          "plan_id": "110685075",
+          "name": "お手軽コース2800円"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan_id=110685075&rcd=23033921&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "中華・火鍋・点心",
+      "address": "愛知県名古屋市中区栄3丁目19番30号",
+      "lat": 35.16563733732644,
+      "lng": 136.90372228002136
+    },
+    {
+      "rank": 50,
+      "name": "時不知 個室で美味い、酒と飯。",
+      "tabelog": {
+        "score": "3.45",
+        "reviews": "278",
+        "saves": "12847",
+        "url": "https://tabelog.com/aichi/A2301/A230103/23085028/",
+        "partyUrl": "https://tabelog.com/aichi/A2301/A230103/23085028/party/"
+      },
+      "google": {
+        "name": "居酒屋〜トキシラズ〜個室で美味い、酒と飯。栄店",
+        "rating": "4.0",
+        "reviews": "153",
+        "address": "住所: 〒460-0003 愛知県名古屋市中区錦３丁目２２−７ アークビル 6F "
+      },
+      "reservation": {
+        "route": {
+          "kind": "seat-only",
+          "seat_only": "true"
+        },
+        "option": {
+          "time": "18:00",
+          "url": "/booking/form/new?member=5&plan=none&rcd=23085028&visit_date=20260621&visit_time=1800"
+        }
+      },
+      "category": "和食・海鮮",
+      "address": "愛知県名古屋市中区錦3-22-7 ARK栄ビル 6F A",
+      "lat": 35.16943233732413,
+      "lng": 136.90407168005945
+    }
+  ]
+}
