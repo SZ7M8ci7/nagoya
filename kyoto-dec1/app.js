@@ -5,6 +5,7 @@
   const svg=d3.select('#map');
   const pane=$('.map-pane');
   const select=$('#spot-select');
+  const areaSelect=$('#area-select');
   const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const duration=reduceMotion?0:320;
   let selected=1,width=0,height=0,projection,zoom,world,transform=d3.zoomIdentity;
@@ -18,10 +19,11 @@
   function choose(id,{pan=false}={}){
     const d=spots.find(d=>d.id===Number(id));if(!d)return;
     selected=d.id;select.value=d.id;
+    $('#selection-status').textContent=`${d.id} / ${spots.length}：${d.name}`;
     $('#spot-number').textContent=String(d.id).padStart(2,'0');
     $('#spot-name').textContent=d.name;$('#spot-area').textContent=d.area;
     $('#spot-photo').src=d.image;$('#spot-photo').alt=`${d.name}の夜の紅葉ライトアップ。${d.photoNote}`;
-    $('#photo-open').setAttribute('aria-label',`${d.name}の写真を大きく表示`);
+    $('#photo-open').setAttribute('aria-label',`${d.name}の写真を全画面で表示`);
     $('#spot-location').textContent=d.visitNote||d.locationNote||`${d.area}のライトアップ`;
     $('#event-link').hidden=!d.eventURL;
     if(d.eventURL)$('#event-link').href=d.eventURL;
@@ -33,8 +35,24 @@
   function overlaps(a,b){return a.x<b.x+b.w+4&&a.x+a.w+4>b.x&&a.y<b.y+b.h+3&&a.y+a.h+3>b.y}
   function drawPins(){
     const nodes=spots.map(d=>{const [ax,ay]=transform.apply(projection([d.lon,d.lat]));return {...d,ax,ay,x:ax,y:ay}}).filter(d=>d.ax>15&&d.ax<width-15&&d.ay>20&&d.ay<height-20);
-    d3.forceSimulation(nodes).force('x',d3.forceX(d=>d.ax).strength(.32)).force('y',d3.forceY(d=>d.ay).strength(.32)).force('collide',d3.forceCollide(23).iterations(4)).stop().tick(65);
-    nodes.forEach(d=>{d.x=Math.max(23,Math.min(width-23,d.x));d.y=Math.max(27,Math.min(height-30,d.y))});
+    const paneRect=pane.getBoundingClientRect();
+    const obstacles=[...pane.querySelectorAll('.date-chip,.area-picker,.map-controls')].map(el=>{
+      const r=el.getBoundingClientRect();return {left:r.left-paneRect.left-24,right:r.right-paneRect.left+24,top:r.top-paneRect.top-24,bottom:r.bottom-paneRect.top+24};
+    });
+    const simulation=d3.forceSimulation(nodes).force('x',d3.forceX(d=>d.ax).strength(.32)).force('y',d3.forceY(d=>d.ay).strength(.32)).force('collide',d3.forceCollide(23).iterations(4)).stop();
+    // Reserve full touch targets around floating controls, including on short screens.
+    for(let i=0;i<65;i++){
+      simulation.tick();
+      nodes.forEach(d=>{
+        d.x=Math.max(23,Math.min(width-23,d.x));d.y=Math.max(27,Math.min(height-30,d.y));
+        for(const r of obstacles){
+          if(d.x<=r.left||d.x>=r.right||d.y<=r.top||d.y>=r.bottom)continue;
+          const choices=[{x:r.left,y:d.y},{x:r.right,y:d.y},{x:d.x,y:r.top},{x:d.x,y:r.bottom}].filter(p=>p.x>=23&&p.x<=width-23&&p.y>=27&&p.y<=height-30);
+          choices.sort((a,b)=>Math.hypot(a.x-d.x,a.y-d.y)-Math.hypot(b.x-d.x,b.y-d.y));
+          if(choices.length){d.x=choices[0].x;d.y=choices[0].y}
+        }
+      });
+    }
     svg.select('.leaders').selectAll('path').data(nodes,d=>d.id).join('path').attr('class','leader').attr('d',d=>`M${d.ax},${d.ay}L${d.x},${d.y}`);
     svg.select('.locations').selectAll('circle').data(nodes,d=>d.id).join('circle').attr('class','location-dot').attr('cx',d=>d.ax).attr('cy',d=>d.ay).attr('r',1.8);
     const pins=svg.select('.pins').selectAll('g').data(nodes,d=>d.id).join(enter=>{const g=enter.append('g');g.append('circle').attr('class','pin-ring').attr('r',22);g.append('circle').attr('class','pin-face').attr('r',16);g.append('text').attr('class','pin-number');g.append('circle').attr('class','pin-hit').attr('r',22);return g});
@@ -42,7 +60,7 @@
     pins.select('.pin-number').text(d=>d.id);
     pins.filter(d=>d.id===selected).raise();
     const used=nodes.map(d=>({x:d.x-22,y:d.y-22,w:44,h:44}));
-    used.push({x:width-65,y:height-175,w:65,h:175},{x:0,y:0,w:210,h:43});
+    used.push({x:width-152,y:height-77,w:152,h:77},{x:0,y:0,w:width,h:60});
     const text=[];
     for(const d of [...nodes].sort((a,b)=>(b.id===selected)-(a.id===selected))){
       if(d.id!==selected&&transform.k<1.8)continue;
@@ -64,8 +82,13 @@
     svg.select('.scale-line').attr('d',`M${x},${y-4}V${y}H${x+len}V${y-4}`);svg.select('.scale-label').attr('x',x+len/2).attr('y',y-7).text(`${km} km`);
   }
   function move(t){svg.interrupt().transition().duration(duration).call(zoom.transform,t)}
-  function focusSpot(d){const q=projection([d.lon,d.lat]);const k=Math.max(transform.k,2.5);move(d3.zoomIdentity.translate(width/2-q[0]*k,height/2-q[1]*k).scale(k));setArea(null)}
-  function setArea(key){document.querySelectorAll('[data-area]').forEach(b=>{const active=b.dataset.area===key;b.classList.toggle('is-active',active);b.setAttribute('aria-pressed',String(active))})}
+  function focusSpot(d){
+    const q=projection([d.lon,d.lat]),p=transform.apply(q);
+    // Keep the overview while comparing photos; pan only when the next spot is off-screen.
+    if(p[0]>32&&p[0]<width-32&&p[1]>60&&p[1]<height-65)return;
+    const k=transform.k;move(d3.zoomIdentity.translate(width/2-q[0]*k,height/2-q[1]*k).scale(k));setArea(null);
+  }
+  function setArea(key){areaSelect.value=key||'custom'}
   function focusArea(key){
     if(key==='all'){move(d3.zoomIdentity);setArea('all');return}
     const list=spots.filter(d=>groups[key].includes(d.id));const pts=list.map(d=>projection([d.lon,d.lat]));
@@ -77,7 +100,7 @@
     const rect=pane.getBoundingClientRect(),w=Math.round(rect.width),h=Math.round(rect.height);if(w<1||h<1)return;
     const priorCenter=projection?projection.invert(transform.invert([width/2,height/2])):null,priorZoom=transform.k;
     width=w;height=h;svg.attr('viewBox',`0 0 ${width} ${height}`);
-    projection=d3.geoMercator().fitExtent([[40,58],[width-44,height-38]],{type:'FeatureCollection',features:spots.map(d=>({type:'Feature',geometry:{type:'Point',coordinates:[d.lon,d.lat]}}))});
+    projection=d3.geoMercator().fitExtent([[34,72],[width-34,height-83]],{type:'FeatureCollection',features:spots.map(d=>({type:'Feature',geometry:{type:'Point',coordinates:[d.lon,d.lat]}}))});
     const path=d3.geoPath(projection);svg.selectAll('*').remove();
     world=svg.append('g').attr('class','world');
     for(const [layer,cls] of [['WA','water'],['AdmBdry','boundary'],['RdCL','road'],['RailCL','rail'],['RvrCL','river']])world.append('path').datum(geometry.layers[layer]).attr('class',cls).attr('d',path).attr('vector-effect','non-scaling-stroke');
@@ -93,7 +116,14 @@
   $('#zoom-in').addEventListener('click',()=>{svg.transition().duration(duration).call(zoom.scaleBy,1.65);setArea(null)});
   $('#zoom-out').addEventListener('click',()=>{svg.transition().duration(duration).call(zoom.scaleBy,1/1.65);setArea(null)});
   $('#reset-map').addEventListener('click',()=>focusArea('all'));
-  document.querySelectorAll('[data-area]').forEach(b=>b.addEventListener('click',()=>focusArea(b.dataset.area)));
+  areaSelect.addEventListener('change',()=>focusArea(areaSelect.value));
+  const details=$('#details-dialog');
+  $('#details-open').addEventListener('click',()=>details.showModal());
+  $('#details-close').addEventListener('click',()=>details.close());
+  details.addEventListener('click',e=>{
+    const r=details.getBoundingClientRect();
+    if(e.target===details&&(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom))details.close();
+  });
   const dialog=$('#photo-dialog');
   $('#photo-open').addEventListener('click',()=>{const d=spots.find(d=>d.id===selected);$('#large-photo').src=d.image;$('#large-photo').alt=$('#spot-photo').alt;$('#large-title').textContent=d.name;$('#large-caption').textContent=d.photoNote;dialog.showModal()});
   $('#photo-close').addEventListener('click',()=>dialog.close());
