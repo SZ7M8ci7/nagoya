@@ -4,52 +4,64 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#eeeee4">
-  <meta name="description" content="2026年12月1日（火）の京都の紅葉ライトアップ23か所。地図のピンを選んで写真を見比べられます。">
-  <title>12月1日 京都の紅葉ライトアップ｜23か所の写真と地図</title>
-  <link rel="stylesheet" href="style.css?v=20261030-2">
+  <meta name="description" content="2026年12月1日の京都街歩き。紅葉ライトアップ、社寺、カフェなどをジャンルで選び、地図と写真で見比べられます。">
+  <title>12月1日 京都の街歩き｜写真と地図</title>
+  <link rel="stylesheet" href="style.css?v=20261101-1">
   <script src="d3.min.js" defer></script>
   <script src="data.js" defer></script>
-  <script src="app.js?v=20261030-2" defer></script>
+  <script src="places.js?v=20261101-1" defer></script>
+  <script src="basemap.js?v=20261101-1" defer></script>
+  <script src="app.js?v=20261101-1" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#spot-select">場所を選ぶ</a>
-  <h1 class="sr-only">2026年12月1日 京都の紅葉ライトアップ23か所</h1>
+  <a class="skip-link" href="#filters-open">ジャンルを選ぶ</a>
+  <h1 class="sr-only">2026年12月1日 京都の街歩き、写真と地図</h1>
   <main class="app-shell" data-layout="visual-first">
-    <section class="map-pane" aria-label="京都の23か所のライトアップ地図">
-      <svg id="map" role="group" aria-label="番号のピンを選ぶと下に会場の写真を表示します"></svg>
+    <section class="map-pane" aria-label="京都の街歩き地図">
+      <svg id="map" role="group" aria-label="番号のピンを選ぶと写真を表示します"></svg>
       <div class="map-topbar">
-        <span class="date-chip" aria-label="2026年12月1日、京都">京都 <span>12/1</span></span>
+        <button type="button" id="filters-open" class="filter-toggle" aria-haspopup="dialog" aria-controls="filter-dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16M8 4v6m8 4v6"/></svg>
+          <span>ジャンル</span><span id="filter-count">23件</span>
+        </button>
         <div class="area-picker">
           <select id="area-select" aria-label="地図のエリアを選ぶ">
             <option value="all">全エリア</option>
+            <option value="central">中心部</option>
             <option value="east">東山</option>
             <option value="north">北エリア</option>
             <option value="station">京都駅周辺</option>
             <option value="west">嵐山</option>
-            <option value="south">醍醐</option>
+            <option value="south">伏見・醍醐</option>
+            <option value="outer">宇治・長岡京</option>
             <option value="custom" hidden disabled>エリア</option>
           </select>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
         </div>
       </div>
+      <div id="map-empty" class="map-empty" hidden>
+        <div><p>表示する場所がありません</p><button type="button" id="empty-filters-open">ジャンルを選ぶ</button></div>
+      </div>
       <div class="map-controls" aria-label="地図の表示を調整">
-        <button type="button" id="reset-map" aria-label="23か所が見える全体図に戻す" title="全体に戻す"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button>
+        <button type="button" id="reset-map" aria-label="表示対象が見える全体図に戻す" title="全体に戻す"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button>
         <button type="button" id="zoom-out" aria-label="地図を縮小"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
         <button type="button" id="zoom-in" aria-label="地図を拡大"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
       </div>
       <div class="map-credit"><a href="https://github.com/gsi-cyberjapan/optimal_bvmap" target="_blank" rel="noopener noreferrer">地図：国土地理院</a></div>
     </section>
 
-    <section class="photo-pane" aria-label="選んだ会場の写真">
+    <section class="photo-pane" aria-label="選んだ場所の写真">
       <button type="button" id="photo-open" class="photo-button" aria-label="写真を全画面で表示">
         <img id="spot-photo" alt="" decoding="async" draggable="false">
         <span class="photo-expand" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></span>
       </button>
-      <button type="button" id="prev-spot" class="photo-arrow photo-prev" aria-label="前の会場"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
-      <button type="button" id="next-spot" class="photo-arrow photo-next" aria-label="次の会場"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+      <p id="photo-empty" class="photo-empty" hidden>表示する場所がありません</p>
+      <span id="photo-warning" class="photo-warning" hidden>火曜定休</span>
+      <button type="button" id="prev-spot" class="photo-arrow photo-prev" aria-label="前の場所"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+      <button type="button" id="next-spot" class="photo-arrow photo-next" aria-label="次の場所"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
       <div class="photo-footer">
         <div class="spot-picker">
-          <select id="spot-select" aria-label="23か所からライトアップ会場を選ぶ"></select>
+          <select id="spot-select" aria-label="表示対象から場所を選ぶ"></select>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
         </div>
         <button type="button" id="details-open" aria-haspopup="dialog" aria-controls="details-dialog">詳細</button>
@@ -58,6 +70,27 @@
     </section>
   </main>
 
+  <dialog id="filter-dialog" class="details-dialog filter-dialog" aria-labelledby="filter-title">
+    <header class="details-header">
+      <div><p class="spot-area">京都 · 2026年12月1日（火）</p><h2 id="filter-title">ジャンルを選ぶ</h2></div>
+      <button type="button" id="filters-close" class="dialog-close" aria-label="ジャンル選択を閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="filter-scroll">
+      <div class="filter-tools"><button type="button" id="filter-all">全選択</button><button type="button" id="filter-none">すべて解除</button></div>
+      <fieldset class="category-fieldset"><legend class="sr-only">表示するジャンルを複数選択</legend><div id="category-list"></div></fieldset>
+      <label class="closed-filter"><input type="checkbox" id="hide-closed"><span>火曜定休の記載がある場所を隠す</span></label>
+    </div>
+    <footer class="filter-footer"><button type="button" id="apply-filters">23件を表示</button></footer>
+  </dialog>
+
+  <dialog id="cluster-dialog" class="details-dialog cluster-dialog" aria-labelledby="cluster-title">
+    <header class="details-header">
+      <div><p id="cluster-count" class="spot-area"></p><h2 id="cluster-title">近くの場所</h2></div>
+      <button type="button" id="cluster-close" class="dialog-close" aria-label="場所の一覧を閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div id="cluster-list" class="cluster-list"></div>
+  </dialog>
+
   <dialog id="details-dialog" class="details-dialog" aria-labelledby="spot-name">
     <header class="details-header">
       <span id="spot-number" class="spot-number">01</span>
@@ -65,28 +98,35 @@
       <button type="button" id="details-close" class="dialog-close" aria-label="詳細を閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
     </header>
     <div class="details-body">
-      <p id="spot-location" class="location-note"></p>
+      <p id="spot-summary" class="location-note" hidden></p>
+      <p id="spot-location" class="location-note" hidden></p>
+      <p id="spot-address" class="address-note" hidden></p>
       <div class="detail-actions">
         <a id="google-map" class="map-link" target="_blank" rel="noopener noreferrer">Google マップで開く <span aria-hidden="true">↗</span></a>
-        <a id="event-link" class="event-link" target="_blank" rel="noopener noreferrer" hidden>開催案内・予約 <span aria-hidden="true">↗</span></a>
+        <a id="event-link" class="event-link" target="_blank" rel="noopener noreferrer" hidden>開催案内・予約 ↗</a>
+        <a id="official-link" class="event-link" target="_blank" rel="noopener noreferrer" hidden>公式サイト ↗</a>
+        <div id="reference-links" class="reference-links"></div>
       </div>
       <details class="source-details">
         <summary>写真・地図の出典</summary>
         <p id="photo-note"></p>
-        <p>写真は過去の開催分も含みます。2026年の色づきや演出とは異なる場合があります。</p>
-        <div class="source-links"><a id="photo-source" target="_blank" rel="noopener noreferrer">写真の出典 ↗</a><a id="location-source" target="_blank" rel="noopener noreferrer">位置の出典 ↗</a></div>
+        <p id="photo-credit" hidden></p>
+        <p><a id="photo-license" target="_blank" rel="noopener noreferrer" hidden></a></p>
+        <p id="historic-photo-note" hidden>写真は過去の開催分も含みます。2026年の色づきや演出とは異なる場合があります。</p>
+        <div class="source-links"><a id="photo-source" target="_blank" rel="noopener noreferrer">写真の出典 ↗</a><a id="location-source" target="_blank" rel="noopener noreferrer">位置・情報の出典 ↗</a></div>
+        <div id="additional-sources" class="source-links"></div>
+        <p id="coordinate-note" hidden></p>
         <p class="map-data-credit">地図・位置データ：国土地理院／『日本歴史地名大系』施設・地点項目データセット（CODH作成） <a href="https://doi.org/10.20676/00000456" target="_blank" rel="noopener noreferrer">doi:10.20676/00000456</a>（<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>）／<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>／<a href="https://www.wikidata.org/" target="_blank" rel="noopener noreferrer">Wikidata</a>ほか。各地点の出典は上記リンクをご覧ください。</p>
       </details>
-      <p class="availability-note">2026年12月1日の候補一覧です。予約・開催状況をご確認のうえお出かけください。</p>
+      <p id="availability-note" class="availability-note">営業日・開催日・予約は各公式案内をご確認ください。</p>
     </div>
   </dialog>
 
   <dialog id="photo-dialog" class="photo-dialog" aria-labelledby="large-title">
     <img id="large-photo" alt="">
     <button type="button" id="photo-close" class="dialog-close" aria-label="写真を閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
-    <p id="large-title"></p>
-    <p id="large-caption" class="sr-only"></p>
+    <p id="large-title"></p><p id="large-caption" class="sr-only"></p>
   </dialog>
-  <noscript><p class="noscript">地図と会場選択を表示するには、ブラウザのJavaScriptを有効にしてください。</p></noscript>
+  <noscript><p class="noscript">地図と場所選択を表示するには、ブラウザのJavaScriptを有効にしてください。</p></noscript>
 </body>
 </html>
