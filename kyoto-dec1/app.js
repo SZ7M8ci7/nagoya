@@ -5,9 +5,7 @@
   const additions = window.KYOTO_PLACES || {};
   const defaults = [
     ['lightup', 'ライトアップ', '#9a3c2d'], ['temple', '社寺・庭園', '#657743'],
-    ['sweets', 'カフェ・洋スイーツ', '#b46561'], ['machiya', '町家カフェ', '#a27242'],
-    ['heritage', '老舗の和カフェ', '#6a765a'], ['wagashi', '和甘味', '#8c6583'],
-    ['retro', 'レトロ喫茶', '#666ba0'], ['tea', 'アフタヌーンティー', '#ab6b8d'],
+    ['cafe', 'カフェ・甘味', '#aa4772'],
     ['food', '食事', '#b36d36'], ['walk', '街歩き・買い物', '#497d83']
   ].map(([id, label, color]) => ({ id, label, color }));
   const categories = Array.isArray(additions.categories) && additions.categories.length
@@ -18,7 +16,7 @@
   (additions.spots || []).forEach(d => byId.set(Number(d.id), { ...byId.get(Number(d.id)), ...d }));
   const fallbackAreas = { 19: 'south', 20: 'west', 21: 'west', 22: 'station', 23: 'central' };
   const spots = [...byId.values()].map(d => ({
-    ...d, id: Number(d.id),
+    ...d, ...(window.KYOTO_PHOTOS || {})[d.id], id: Number(d.id),
     categories: Array.isArray(d.categories) ? d.categories : (d.id <= 23 ? ['lightup'] : []),
     areaKey: d.areaKey || fallbackAreas[d.id] || (d.id <= 7 ? 'north' : d.id <= 14 ? 'east' : d.id <= 18 ? 'station' : 'central')
   })).filter(d => Number.isFinite(d.id)).sort((a, b) => a.id - b.id);
@@ -43,12 +41,13 @@
   const majorLabels = new Set(['京都駅', '出町柳駅', '嵯峨嵐山駅', '八瀬比叡山口駅', '山科駅', '二条駅', '宇治駅', '長岡京駅', '稲荷駅']);
   let active = new Set(['lightup']), hideClosed = false, draft = new Set(), draftHideClosed = false;
   let visible = [], selected = null, current = null, width = 0, height = 0;
+  let photoIndex = 0, gallery = [];
   let projection, zoom, world, transform = d3.zoomIdentity, renderFrame = 0, currentArea = 'all';
 
   try {
     const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
     if (stored && Array.isArray(stored.categories)) {
-      active = new Set(stored.categories.filter(id => categoryById.has(id)));
+      active = new Set(stored.categories.map(id => ['sweets','machiya','heritage','wagashi','retro','tea'].includes(id) ? 'cafe' : id).filter(id => categoryById.has(id)));
       hideClosed = stored.hideClosedTuesday === true;
     }
   } catch (_) { /* Filters work when storage is unavailable. */ }
@@ -163,20 +162,61 @@
       if (!['all', 'custom'].includes(option.value)) option.disabled = !visible.some(d => d.areaKey === option.value && hasPosition(d));
     });
     $('#map-empty').hidden = visible.length !== 0;
-    $('#prev-spot').disabled = visible.length < 2;
-    $('#next-spot').disabled = visible.length < 2;
+
     $('#details-open').disabled = !visible.length;
     if (visible.length) choose(visible.some(d => d.id === selected) ? selected : visible[0].id, { redraw: false });
     else clearSelection();
     draw({ reset: true });
   }
   function clearSelection() {
-    selected = null; current = null;
+    selected = null; current = null; gallery = [];
+    $('#gallery-controls').hidden = true; $('#prev-photo').hidden = true; $('#next-photo').hidden = true;
     photo.hidden = true; photo.removeAttribute('src'); photo.alt = '';
     $('#photo-open').disabled = true; $('.photo-expand').hidden = true;
     $('#photo-empty').hidden = false; $('#photo-empty').textContent = '表示する場所がありません';
     $('#photo-warning').hidden = true; $('#selection-status').textContent = '表示する場所がありません';
   }
+
+  function renderPhoto() {
+    const item = gallery[photoIndex];
+    const available = !!(item && item.image);
+    photo.hidden = !available;
+    $('#photo-open').disabled = !available;
+    $('.photo-expand').hidden = !available;
+    $('#photo-empty').hidden = available;
+    $('#photo-empty').textContent = '写真は準備中です';
+    $('#gallery-controls').hidden = !available;
+    $('#prev-photo').hidden = gallery.length < 2;
+    $('#next-photo').hidden = gallery.length < 2;
+    if (!available) { photo.removeAttribute('src'); return; }
+    photo.src = item.image;
+    photo.alt = current.name + 'の写真 ' + (photoIndex + 1) + '／' + gallery.length;
+    $('#photo-open').setAttribute('aria-label', photo.alt + 'を全画面で表示');
+    $('#photo-count').textContent = (photoIndex + 1) + ' / ' + gallery.length;
+    const dots = $('#photo-dots'); dots.replaceChildren();
+    gallery.forEach((p, i) => {
+      const b = document.createElement('button'); b.type = 'button';
+      b.setAttribute('aria-label', '写真' + (i + 1) + 'を表示');
+      b.setAttribute('aria-pressed', String(i === photoIndex));
+      b.addEventListener('click', () => { photoIndex = i; renderPhoto(); });
+      dots.append(b);
+    });
+    paragraph('#photo-note', item.note || '施設・店舗の参考写真です。現在の季節や商品内容とは異なる場合があります。');
+    paragraph('#photo-credit', item.credit);
+    link($('#photo-source'), item.source);
+    link($('#photo-license'), item.licenseURL, item.license || '写真のライセンス ↗');
+    $('#large-photo').src = item.image; $('#large-photo').alt = photo.alt;
+    $('#large-title').textContent = current.name + ' · ' + (photoIndex + 1) + ' / ' + gallery.length;
+    $('#large-caption').textContent = item.note || '';
+    $('#large-prev').hidden = gallery.length < 2; $('#large-next').hidden = gallery.length < 2;
+    $('#photo-status').textContent = photo.alt;
+  }
+  function stepPhoto(direction) {
+    if (gallery.length < 2) return;
+    photoIndex = (photoIndex + direction + gallery.length) % gallery.length;
+    renderPhoto();
+  }
+
   function choose(id, { pan = false, redraw = true } = {}) {
     const base = visible.find(d => d.id === Number(id));
     if (!base) return;
@@ -189,11 +229,8 @@
     $('#spot-number').style.color = category.color;
     $('#spot-name').textContent = d.name;
     $('#spot-area').textContent = [d.area, category.label].filter(Boolean).join(' · ');
-    photo.hidden = !d.image; $('#photo-open').disabled = !d.image; $('.photo-expand').hidden = !d.image;
-    $('#photo-empty').hidden = !!d.image; $('#photo-empty').textContent = '写真は準備中です';
-    if (d.image) photo.src = d.image; else photo.removeAttribute('src');
-    photo.alt = d.name + 'の写真' + (d.photoNote ? '。' + d.photoNote : '');
-    $('#photo-open').setAttribute('aria-label', d.name + 'の写真を全画面で表示');
+    gallery = Array.isArray(d.photos) && d.photos.length ? d.photos : (d.image ? [{ image: d.image, source: d.photoSource, note: d.photoNote, credit: d.photoCredit, license: d.photoLicense, licenseURL: d.photoLicenseURL }] : []);
+    photoIndex = 0;
     $('#photo-warning').hidden = d.closedTuesday !== true;
     paragraph('#spot-summary', d.summary);
     const summaryText = String(d.summary || '').trim();
@@ -205,13 +242,9 @@
       + encodeURIComponent(d.mapQuery || [d.name, d.address || '京都'].join(' '));
     link($('#event-link'), d.eventURL, '開催案内・予約 ↗');
     link($('#official-link'), d.officialURL && d.officialURL !== d.eventURL ? d.officialURL : '', '公式サイト ↗');
-    paragraph('#photo-note', d.photoNote);
     paragraph('#coordinate-note', d.coordinateNote);
-    paragraph('#photo-credit', d.photoCredit);
-    link($('#photo-license'), d.photoLicenseURL, d.photoLicense || '写真のライセンス ↗');
-    if (d.photoLicense && !d.photoLicenseURL) paragraph('#photo-credit', [d.photoCredit, d.photoLicense].filter(Boolean).join(' · '));
     $('#historic-photo-note').hidden = !night;
-    link($('#photo-source'), d.photoSource);
+    renderPhoto();
     link($('#location-source'), d.sourceURL);
     const urls = [...new Set([d.sourceURL, ...(Array.isArray(d.sourceURLs) ? d.sourceURLs : [])].map(externalURL).filter(Boolean))];
     const refs = $('#reference-links'); refs.replaceChildren();
@@ -487,13 +520,10 @@
   $('#apply-filters').addEventListener('click', applyDraft);
   $('#cluster-close').addEventListener('click', () => clusterDialog.close());
   select.addEventListener('change', () => choose(select.value, { pan: true }));
-  function step(direction) {
-    if (!visible.length) return;
-    const index = visible.findIndex(d => d.id === selected);
-    choose(visible[(index + direction + visible.length) % visible.length].id, { pan: true });
-  }
-  $('#prev-spot').addEventListener('click', () => step(-1));
-  $('#next-spot').addEventListener('click', () => step(1));
+  $('#prev-photo').addEventListener('click', () => stepPhoto(-1));
+  $('#next-photo').addEventListener('click', () => stepPhoto(1));
+  $('#large-prev').addEventListener('click', () => stepPhoto(-1));
+  $('#large-next').addEventListener('click', () => stepPhoto(1));
   $('#zoom-in').addEventListener('click', () => { if (zoom) { svg.interrupt().transition().duration(duration).call(zoom.scaleBy, 1.65); setArea(null); } });
   $('#zoom-out').addEventListener('click', () => { if (zoom) { svg.interrupt().transition().duration(duration).call(zoom.scaleBy, 1 / 1.65); setArea(null); } });
   $('#reset-map').addEventListener('click', () => focusArea('all'));
@@ -501,12 +531,30 @@
   $('#details-open').addEventListener('click', () => { if (current) showDialog(detailsDialog); });
   $('#details-close').addEventListener('click', () => detailsDialog.close());
   $('#photo-open').addEventListener('click', () => {
-    if (!current || !current.image) return;
-    $('#large-photo').src = current.image; $('#large-photo').alt = photo.alt;
-    $('#large-title').textContent = current.name;
-    $('#large-caption').textContent = current.photoNote || '';
+    if (!current || !gallery.length) return;
+    renderPhoto();
     showDialog(photoDialog);
   });
+
+  [$('#photo-open'), photoDialog].forEach(el => {
+    let start = null, swiped = false;
+    el.addEventListener('pointerdown', e => { start = {x:e.clientX,y:e.clientY}; swiped = false; });
+    el.addEventListener('pointerup', e => {
+      if (!start) return;
+      const dx = e.clientX - start.x, dy = e.clientY - start.y; start = null;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+        swiped = true; stepPhoto(dx < 0 ? 1 : -1);
+      }
+    });
+    el.addEventListener('pointercancel', () => { start = null; });
+    el.addEventListener('click', e => { if (swiped) { e.preventDefault(); e.stopImmediatePropagation(); swiped = false; } }, true);
+    el.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+        e.preventDefault(); stepPhoto(e.key === 'ArrowRight' ? 1 : -1);
+      }
+    });
+  });
+
   $('#photo-close').addEventListener('click', () => photoDialog.close());
   [detailsDialog, filterDialog, clusterDialog, photoDialog].forEach(dialog => {
     dialog.addEventListener('click', e => {

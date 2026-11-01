@@ -89,3 +89,10 @@ button:disabled,select:disabled{cursor:default;opacity:.45}
  .filter-scroll{padding-inline:12px}
  .category-row>label{gap:7px;font-size:13px}
 }
+
+/* Photo controls overlay the image without reducing its display area. */
+.gallery-controls{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:5px;padding:0 9px;background:#07100aa8;border:1px solid #ffffff30;border-radius:24px;height:36px;backdrop-filter:blur(8px)}
+#photo-count{font-size:12px;font-variant-numeric:tabular-nums;min-width:29px}
+.photo-dots{display:flex;align-items:center;gap:0}.photo-dots button{width:28px;height:36px;border:0;background:transparent;padding:0;display:grid;place-items:center}.photo-dots button::after{content:'';width:6px;height:6px;border-radius:50%;background:#ffffff60}.photo-dots button[aria-pressed=true]::after{background:#fff;box-shadow:0 0 0 3px #ffffff25}
+.photo-warning{top:55px}.photo-dialog .photo-arrow{font-size:32px;touch-action:manipulation}.photo-dialog{touch-action:pan-y}
+[hidden]{display:none!important}
