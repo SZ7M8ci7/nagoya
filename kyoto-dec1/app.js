@@ -36,10 +36,10 @@
   const photoDialog = $('#photo-dialog');
   const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
   const MAX_ZOOM = 32;
-  const STORAGE_KEY = 'kyoto-dec1-genres-v1';
+  const STORAGE_KEY = 'kyoto-dec1-genres-v2';
   const shortNames = { 2: 'もみじのトンネル', 12: '知恩院', 19: '醍醐寺', 21: 'トロッコ嵯峨駅' };
   const majorLabels = new Set(['京都駅', '出町柳駅', '嵯峨嵐山駅', '八瀬比叡山口駅', '山科駅', '二条駅', '宇治駅', '長岡京駅', '稲荷駅']);
-  let active = new Set(['lightup']), hideClosed = false, draft = new Set(), draftHideClosed = false;
+  let active = new Set(categories.map(c => c.id)), hideClosed = false, draft = new Set(), draftHideClosed = false;
   let visible = [], selected = null, current = null, width = 0, height = 0;
   let photoIndex = 0, gallery = [];
   let projection, zoom, world, transform = d3.zoomIdentity, renderFrame = 0, currentArea = 'all';
