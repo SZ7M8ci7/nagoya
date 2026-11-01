@@ -27,13 +27,13 @@
     .filter(d => d.name && d.geometry && d.geometry.type === 'Point' && !seenLabels.has(d.name) && seenLabels.add(d.name));
   const svg = d3.select('#map');
   const pane = $('.map-pane');
-  const select = $('#spot-select');
+  const feed = $('#photo-feed');
+  let feedItems = [], feedFrame = 0;
   const areaSelect = $('#area-select');
   const filterDialog = $('#filter-dialog');
   const clusterDialog = $('#cluster-dialog');
   const detailsDialog = $('#details-dialog');
   const photoDialog = $('#photo-dialog');
-  const photo = $('#spot-photo');
   const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
   const MAX_ZOOM = 32;
   const STORAGE_KEY = 'kyoto-dec1-genres-v1';
@@ -148,13 +148,7 @@
   }
   function refreshVisible() {
     visible = filtered(active, hideClosed);
-    select.replaceChildren();
-    visible.forEach(d => {
-      const option = document.createElement('option'); option.value = d.id;
-      option.textContent = String(d.id).padStart(2, '0') + '　' + d.name;
-      select.append(option);
-    });
-    select.disabled = visible.length === 0;
+    renderFeed();
     $('#filter-count').textContent = visible.length + '件';
     $('#filters-open').setAttribute('aria-label', 'ジャンルを選ぶ。現在' + visible.length + '件を表示');
     $('#reset-map').setAttribute('aria-label', '現在の' + visible.length + '件が見える全体図に戻す');
@@ -163,75 +157,112 @@
     });
     $('#map-empty').hidden = visible.length !== 0;
 
-    $('#details-open').disabled = !visible.length;
     if (visible.length) choose(visible.some(d => d.id === selected) ? selected : visible[0].id, { redraw: false });
     else clearSelection();
     draw({ reset: true });
   }
+  function photosFor(d) {
+    return Array.isArray(d.photos) && d.photos.length ? d.photos : (d.image ? [{ image: d.image, source: d.photoSource, note: d.photoNote }] : []);
+  }
+  function renderFeed() {
+    cancelAnimationFrame(feedFrame); feedFrame = 0;
+    feedItems = [];
+    const fragment = document.createDocumentFragment();
+    visible.forEach(base => {
+      const d = displaySpot(base), photos = photosFor(d);
+      photos.forEach((item, index) => {
+        const card = document.createElement('article');
+        card.className = 'feed-photo'; card.dataset.spotId = d.id; card.dataset.photoIndex = index;
+        card.style.setProperty('--spot-color', categoryFor(base).color);
+        const open = document.createElement('button'); open.type = 'button'; open.className = 'feed-image';
+        open.setAttribute('aria-label', d.name + 'の写真 ' + (index + 1) + '／' + photos.length + 'を全画面で表示');
+        const img = document.createElement('img'); img.src = item.image; img.alt = d.name + 'の写真 ' + (index + 1);
+        img.loading = feedItems.length < 2 ? 'eager' : 'lazy'; img.decoding = 'async'; img.draggable = false;
+        img.addEventListener('error', () => { card.classList.add('image-failed'); img.alt = d.name + '：写真を読み込めませんでした'; });
+        open.append(img);
+        const badge = document.createElement('span'); badge.className = 'feed-count'; badge.textContent = (index + 1) + ' / ' + photos.length;
+        const footer = document.createElement('div'); footer.className = 'feed-footer';
+        const title = document.createElement('span'); title.className = 'feed-title'; title.textContent = String(d.id).padStart(2, '0') + '　' + d.name;
+        const details = document.createElement('button'); details.type = 'button'; details.className = 'feed-details'; details.textContent = '詳細'; details.setAttribute('aria-label', d.name + 'の詳細');
+        open.addEventListener('click', () => { choose(d.id, { pan: true, syncFeed: false, index }); showDialog(photoDialog); renderPhoto(); });
+        details.addEventListener('click', () => { choose(d.id, { pan: true, syncFeed: false, index }); showDialog(detailsDialog); });
+        footer.append(title, details); card.append(open, badge, footer);
+        if (d.closedTuesday === true) {
+          const warning = document.createElement('span'); warning.className = 'feed-closed'; warning.textContent = '火曜定休'; card.append(warning);
+        }
+        fragment.append(card); feedItems.push({ element: card, id: d.id, index });
+      });
+    });
+    feed.replaceChildren(fragment);
+    $('#photo-empty').hidden = feedItems.length > 0;
+  }
+  function markFeed() {
+    feedItems.forEach(item => {
+      const on = item.id === selected && item.index === photoIndex;
+      item.element.classList.toggle('is-active', on);
+      if (on) item.element.setAttribute('aria-current', 'true'); else item.element.removeAttribute('aria-current');
+    });
+  }
+  function scrollToPhoto(id, index = 0) {
+    const item = feedItems.find(item => item.id === id && item.index === index);
+    if (item) feed.scrollTo({ top: item.element.offsetTop, behavior: 'instant' });
+  }
+  function syncFromScroll() {
+    feedFrame = 0;
+    if (!feedItems.length || photoDialog.open || detailsDialog.open) return;
+    // Follow the photograph nearest the upper viewing area, including the last item.
+    const line = feed.scrollTop + Math.min(feed.clientHeight * .4, feedItems[0].element.offsetHeight / 2);
+    let nearest = feedItems[0], distance = Infinity;
+    for (const item of feedItems) {
+      const delta = Math.abs(item.element.offsetTop + item.element.offsetHeight / 2 - line);
+      if (delta < distance) { nearest = item; distance = delta; }
+    }
+    if (nearest.id !== selected) choose(nearest.id, { pan: true, syncFeed: false, index: nearest.index });
+    else if (nearest.index !== photoIndex) { photoIndex = nearest.index; renderPhoto(); markFeed(); }
+  }
+  function scheduleFeedSync() {
+    if (!feedFrame) feedFrame = requestAnimationFrame(syncFromScroll);
+  }
+  feed.addEventListener('scroll', scheduleFeedSync, { passive: true });
   function clearSelection() {
     selected = null; current = null; gallery = [];
-    $('#gallery-controls').hidden = true; $('#prev-photo').hidden = true; $('#next-photo').hidden = true;
-    photo.hidden = true; photo.removeAttribute('src'); photo.alt = '';
-    $('#photo-open').disabled = true; $('.photo-expand').hidden = true;
-    $('#photo-empty').hidden = false; $('#photo-empty').textContent = '表示する場所がありません';
-    $('#photo-warning').hidden = true; $('#selection-status').textContent = '表示する場所がありません';
+    $('#photo-empty').hidden = false;
+    $('#selection-status').textContent = '表示する場所がありません';
   }
-
   function renderPhoto() {
     const item = gallery[photoIndex];
-    const available = !!(item && item.image);
-    photo.hidden = !available;
-    $('#photo-open').disabled = !available;
-    $('.photo-expand').hidden = !available;
-    $('#photo-empty').hidden = available;
-    $('#photo-empty').textContent = '写真は準備中です';
-    $('#gallery-controls').hidden = !available;
-    $('#prev-photo').hidden = gallery.length < 2;
-    $('#next-photo').hidden = gallery.length < 2;
-    if (!available) { photo.removeAttribute('src'); return; }
-    photo.src = item.image;
-    photo.alt = current.name + 'の写真 ' + (photoIndex + 1) + '／' + gallery.length;
-    $('#photo-open').setAttribute('aria-label', photo.alt + 'を全画面で表示');
-    $('#photo-count').textContent = (photoIndex + 1) + ' / ' + gallery.length;
-    const dots = $('#photo-dots'); dots.replaceChildren();
-    gallery.forEach((p, i) => {
-      const b = document.createElement('button'); b.type = 'button';
-      b.setAttribute('aria-label', '写真' + (i + 1) + 'を表示');
-      b.setAttribute('aria-pressed', String(i === photoIndex));
-      b.addEventListener('click', () => { photoIndex = i; renderPhoto(); });
-      dots.append(b);
-    });
+    if (!item) return;
     paragraph('#photo-note', item.note || '施設・店舗の参考写真です。現在の季節や商品内容とは異なる場合があります。');
     paragraph('#photo-credit', item.credit);
     link($('#photo-source'), item.source);
     link($('#photo-license'), item.licenseURL, item.license || '写真のライセンス ↗');
-    $('#large-photo').src = item.image; $('#large-photo').alt = photo.alt;
+    if (photoDialog.open) $('#large-photo').src = item.image;
+    $('#large-photo').alt = current.name + 'の写真 ' + (photoIndex + 1) + '／' + gallery.length;
     $('#large-title').textContent = current.name + ' · ' + (photoIndex + 1) + ' / ' + gallery.length;
     $('#large-caption').textContent = item.note || '';
     $('#large-prev').hidden = gallery.length < 2; $('#large-next').hidden = gallery.length < 2;
-    $('#photo-status').textContent = photo.alt;
   }
   function stepPhoto(direction) {
     if (gallery.length < 2) return;
     photoIndex = (photoIndex + direction + gallery.length) % gallery.length;
-    renderPhoto();
+    renderPhoto(); markFeed(); scrollToPhoto(selected, photoIndex);
   }
 
-  function choose(id, { pan = false, redraw = true } = {}) {
+  function choose(id, { pan = false, redraw = true, syncFeed = true, index = 0 } = {}) {
     const base = visible.find(d => d.id === Number(id));
     if (!base) return;
     selected = base.id; current = displaySpot(base);
     const d = current, category = categoryFor(base);
     const night = active.has('lightup') && base.categories.includes('lightup');
-    select.value = String(d.id);
     $('#selection-status').textContent = d.id + '：' + d.name;
     $('#spot-number').textContent = String(d.id).padStart(2, '0');
     $('#spot-number').style.color = category.color;
     $('#spot-name').textContent = d.name;
     $('#spot-area').textContent = [d.area, category.label].filter(Boolean).join(' · ');
-    gallery = Array.isArray(d.photos) && d.photos.length ? d.photos : (d.image ? [{ image: d.image, source: d.photoSource, note: d.photoNote, credit: d.photoCredit, license: d.photoLicense, licenseURL: d.photoLicenseURL }] : []);
-    photoIndex = 0;
-    $('#photo-warning').hidden = d.closedTuesday !== true;
+    gallery = photosFor(d);
+    photoIndex = Math.max(0, Math.min(index, gallery.length - 1));
+    markFeed();
+    if (syncFeed) scrollToPhoto(d.id, photoIndex);
     paragraph('#spot-summary', d.summary);
     const summaryText = String(d.summary || '').trim();
     const notes = [...new Set([d.visitNote, d.locationNote, d.scheduleNote]
@@ -283,8 +314,9 @@
     const groups = [];
     points.forEach(point => {
       let nearest = null, distance = 46;
-      if (visible.length > 28) {
+      if (visible.length > 28 && point.spot.id !== selected) {
         groups.forEach(group => {
+          if (group.members.some(d => d.id === selected)) return;
           const gap = Math.hypot(point.ax - group.ax, point.ay - group.ay);
           if (gap < distance) { distance = gap; nearest = group; }
         });
@@ -304,7 +336,7 @@
       return {
         ...group, x: group.ax, y: group.ay,
         key: group.members.map(d => d.id).join('-'),
-        cluster: group.members.length > 1, hit: group.members.length > 1 ? 26 : 22,
+        cluster: group.members.length > 1, hit: group.members.some(d => d.id === selected) ? 29 : group.members.length > 1 ? 26 : 22,
         color: category.color, selected: group.members.some(d => d.id === selected)
       };
     });
@@ -367,7 +399,7 @@
         if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activate(event, d); }
       });
     pins.select('.pin-ring').attr('r', d => d.hit);
-    pins.select('.pin-face').attr('r', d => d.cluster ? 23 : 16);
+    pins.select('.pin-face').attr('r', d => d.selected ? 22 : d.cluster ? 23 : 16);
     pins.select('.pin-hit').attr('r', d => d.hit);
     pins.select('.pin-number').text(d => d.cluster ? d.members.length + '件' : d.members[0].id);
     pins.filter(d => d.selected).raise();
@@ -378,10 +410,10 @@
       if (!node.selected && transform.k < 1.8) continue;
       const spot = node.members[0];
       const full = shortNames[spot.id] || spot.name, name = full.length > 18 ? full.slice(0, 17) + '…' : full;
-      const w = name.length * 11 + 4, h = 16;
+      const w = name.length * 11 + 4, h = 16, gap = node.hit + 7;
       const options = [
-        { x: node.x + 24, y: node.y - 8, w, h }, { x: node.x - w - 24, y: node.y - 8, w, h },
-        { x: node.x - w / 2, y: node.y + 25, w, h }, { x: node.x - w / 2, y: node.y - 40, w, h }
+        { x: node.x + gap, y: node.y - 8, w, h }, { x: node.x - w - gap, y: node.y - 8, w, h },
+        { x: node.x - w / 2, y: node.y + gap, w, h }, { x: node.x - w / 2, y: node.y - gap - h, w, h }
       ];
       const box = options.find(b => b.x > 5 && b.x + b.w < width - 5 && b.y > 5 && b.y + b.h < height - 18 && !used.some(u => overlaps(b, u)));
       if (box) { used.push(box); text.push({ ...box, text: name, selected: node.selected, color: node.color }); }
@@ -434,6 +466,7 @@
   }
   function focusSpot(d) {
     if (!hasPosition(d)) return;
+    svg.interrupt();
     const q = projection([d.lon, d.lat]), p = transform.apply(q), r = viewport();
     if (p[0] > r.left && p[0] < r.right && p[1] > r.top && p[1] < r.bottom) return;
     const k = transform.k;
@@ -519,24 +552,14 @@
   $('#hide-closed').addEventListener('change', e => { draftHideClosed = e.target.checked; updateDraftCount(); });
   $('#apply-filters').addEventListener('click', applyDraft);
   $('#cluster-close').addEventListener('click', () => clusterDialog.close());
-  select.addEventListener('change', () => choose(select.value, { pan: true }));
-  $('#prev-photo').addEventListener('click', () => stepPhoto(-1));
-  $('#next-photo').addEventListener('click', () => stepPhoto(1));
   $('#large-prev').addEventListener('click', () => stepPhoto(-1));
   $('#large-next').addEventListener('click', () => stepPhoto(1));
   $('#zoom-in').addEventListener('click', () => { if (zoom) { svg.interrupt().transition().duration(duration).call(zoom.scaleBy, 1.65); setArea(null); } });
   $('#zoom-out').addEventListener('click', () => { if (zoom) { svg.interrupt().transition().duration(duration).call(zoom.scaleBy, 1 / 1.65); setArea(null); } });
   $('#reset-map').addEventListener('click', () => focusArea('all'));
   areaSelect.addEventListener('change', () => focusArea(areaSelect.value));
-  $('#details-open').addEventListener('click', () => { if (current) showDialog(detailsDialog); });
   $('#details-close').addEventListener('click', () => detailsDialog.close());
-  $('#photo-open').addEventListener('click', () => {
-    if (!current || !gallery.length) return;
-    renderPhoto();
-    showDialog(photoDialog);
-  });
-
-  [$('#photo-open'), photoDialog].forEach(el => {
+  [photoDialog].forEach(el => {
     let start = null, swiped = false;
     el.addEventListener('pointerdown', e => { start = {x:e.clientX,y:e.clientY}; swiped = false; });
     el.addEventListener('pointerup', e => {
@@ -556,15 +579,14 @@
   });
 
   $('#photo-close').addEventListener('click', () => photoDialog.close());
+  photoDialog.addEventListener('close', scheduleFeedSync);
+  detailsDialog.addEventListener('close', scheduleFeedSync);
+  new ResizeObserver(scheduleFeedSync).observe(feed);
   [detailsDialog, filterDialog, clusterDialog, photoDialog].forEach(dialog => {
     dialog.addEventListener('click', e => {
       const r = dialog.getBoundingClientRect();
       if (e.target === dialog && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) dialog.close();
     });
-  });
-  photo.addEventListener('error', () => {
-    photo.hidden = true; $('#photo-open').disabled = true; $('.photo-expand').hidden = true;
-    $('#photo-empty').hidden = false; $('#photo-empty').textContent = '写真を読み込めませんでした';
   });
   refreshVisible();
   let resizeTimer;
