@@ -6,13 +6,14 @@
   <meta name="theme-color" content="#eeeee4">
   <meta name="description" content="2026年12月1日の京都街歩き。紅葉ライトアップ、社寺、カフェなどをジャンルで選び、地図と写真で見比べられます。">
   <title>12月1日 京都の街歩き｜写真と地図</title>
-  <link rel="stylesheet" href="style.css?v=20261123-1">
+  <link rel="stylesheet" href="style.css?v=20261123-2">
   <script src="d3.min.js" defer></script>
   <script src="data.js" defer></script>
   <script src="places.js?v=20261101-5" defer></script>
   <script src="basemap.js?v=20261101-5" defer></script>
   <script src="photos.js?v=20261101-5" defer></script>
-  <script src="app.js?v=20261101-6" defer></script>
+  <script src="gion/route.js?v=20261123-2" defer></script>
+  <script src="app.js?v=20261123-2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#filters-open">ジャンルを選ぶ</a>
@@ -25,7 +26,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16M8 4v6m8 4v6"/></svg>
           <span>ジャンル</span><span id="filter-count">85件</span>
         </button>
-        <a class="filter-toggle route-link" href="gion/">寄り道地図</a>
+        <a class="filter-toggle route-link" href="?view=all">京都全域へ</a>
         <div class="area-picker">
           <select id="area-select" aria-label="地図のエリアを選ぶ">
             <option value="all">全エリア</option>
@@ -44,6 +45,7 @@
       <div id="map-empty" class="map-empty" hidden>
         <div><p>表示する場所がありません</p><button type="button" id="empty-filters-open">ジャンルを選ぶ</button></div>
       </div>
+      <output id="map-current" hidden></output>
       <div class="map-controls" aria-label="地図の表示を調整">
         <button type="button" id="reset-map" aria-label="表示対象が見える全体図に戻す" title="全体に戻す"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3H3v6m12-6h6v6M3 15v6h6m12-6v6h-6"/></svg></button>
         <button type="button" id="zoom-out" aria-label="地図を縮小"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
