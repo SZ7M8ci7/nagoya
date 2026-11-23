@@ -1,0 +1,9 @@
+.route-link{color:#78354e;text-decoration:none;background:#fff7f3}.route-link:hover{border-color:currentColor}.map-topbar .area-picker{flex-shrink:1;min-width:82px}
+@media(max-width:390px){.map-topbar{gap:4px}.map-topbar .area-picker{width:105px}}
+
+#map-current {
+  position:absolute; left:12px; bottom:48px; max-width:calc(100% - 170px);
+  border-left:4px solid; border-radius:3px; padding:3px 8px; background:#fffdf9f2;
+  color:var(--ink); font-size:13px; font-weight:650; line-height:1.5;
+  box-shadow:0 1px 5px #25302218; pointer-events:none;
+}

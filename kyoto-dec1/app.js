@@ -2,21 +2,7 @@
   'use strict';
   const $ = s => document.querySelector(s);
   const legacy = window.KYOTO_DATA || { spots: [], geometry: {} };
-  const route = new URLSearchParams(location.search).get('view') === 'all' ? null : window.KYOTO_ROUTE;
-  const additions = route || window.KYOTO_PLACES || {};
-  const labelFor = d => d.code || String(d.id).padStart(2, '0');
-  const viewLink = $('.route-link');
-  viewLink.href = route ? '?view=all' : './';
-  viewLink.textContent = route ? '京都全域へ' : '寄り道地図';
-  if (route) {
-    document.title = '祇園・東山の寄り道地図｜12月1日 京都の街歩き';
-    for (const option of [...$('#area-select').options]) {
-      if (!['all', 'east', 'north', 'custom'].includes(option.value)) option.remove();
-    }
-    $('#area-select option[value=east]').textContent = '祇園・東山';
-    $('#area-select option[value=north]').textContent = '八瀬';
-    $('#area-select option[value=all]').textContent = '行程全体';
-  }
+  const additions = window.KYOTO_PLACES || {};
   const defaults = [
     ['lightup', 'ライトアップ', '#9a3c2d'], ['temple', '社寺・庭園', '#657743'],
     ['cafe', 'カフェ・甘味', '#aa4772'],
@@ -26,15 +12,14 @@
     ? additions.categories : defaults;
   const categoryById = new Map(categories.map(c => [c.id, c]));
   const byId = new Map();
-  if (!route) (legacy.spots || []).forEach(d => byId.set(Number(d.id), { ...d, categories: d.categories || ['lightup'] }));
+  (legacy.spots || []).forEach(d => byId.set(Number(d.id), { ...d, categories: d.categories || ['lightup'] }));
   (additions.spots || []).forEach(d => byId.set(Number(d.id), { ...byId.get(Number(d.id)), ...d }));
   const fallbackAreas = { 19: 'south', 20: 'west', 21: 'west', 22: 'station', 23: 'central' };
   const spots = [...byId.values()].map(d => ({
-    ...d, ...(!route && (window.KYOTO_PHOTOS || {})[d.id]), id: Number(d.id),
+    ...d, ...(window.KYOTO_PHOTOS || {})[d.id], id: Number(d.id),
     categories: Array.isArray(d.categories) ? d.categories : (d.id <= 23 ? ['lightup'] : []),
     areaKey: d.areaKey || fallbackAreas[d.id] || (d.id <= 7 ? 'north' : d.id <= 14 ? 'east' : d.id <= 18 ? 'station' : 'central')
-  })).filter(d => Number.isFinite(d.id));
-  if (!route) spots.sort((a, b) => a.id - b.id);
+  })).filter(d => Number.isFinite(d.id)).sort((a, b) => a.id - b.id);
   const geometry = window.KYOTO_BASEMAP || legacy.geometry || {};
   const rawLabels = Array.isArray(geometry.labels) ? geometry.labels : (geometry.labels && geometry.labels.features) || [];
   const seenLabels = new Set();
@@ -51,7 +36,7 @@
   const photoDialog = $('#photo-dialog');
   const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
   const MAX_ZOOM = 32;
-  const STORAGE_KEY = route ? 'kyoto-dec1-route-genres' : 'kyoto-dec1-genres-v2';
+  const STORAGE_KEY = 'kyoto-dec1-genres-v2';
   const shortNames = { 2: 'もみじのトンネル', 12: '知恩院', 19: '醍醐寺', 21: 'トロッコ嵯峨駅' };
   const majorLabels = new Set(['京都駅', '出町柳駅', '嵯峨嵐山駅', '八瀬比叡山口駅', '山科駅', '二条駅', '宇治駅', '長岡京駅', '稲荷駅']);
   let active = new Set(categories.map(c => c.id)), hideClosed = false, draft = new Set(), draftHideClosed = false;
@@ -195,9 +180,9 @@
         img.loading = feedItems.length < 2 ? 'eager' : 'lazy'; img.decoding = 'async'; img.draggable = false;
         img.addEventListener('error', () => { card.classList.add('image-failed'); img.alt = d.name + '：写真を読み込めませんでした'; });
         open.append(img);
-        const badge = document.createElement('span'); badge.className = 'feed-count'; badge.textContent = route ? d.time : (index + 1) + ' / ' + photos.length;
+        const badge = document.createElement('span'); badge.className = 'feed-count'; badge.textContent = (index + 1) + ' / ' + photos.length;
         const footer = document.createElement('div'); footer.className = 'feed-footer';
-        const title = document.createElement('span'); title.className = 'feed-title'; title.textContent = labelFor(d) + '　' + d.name;
+        const title = document.createElement('span'); title.className = 'feed-title'; title.textContent = String(d.id).padStart(2, '0') + '　' + d.name;
         const details = document.createElement('button'); details.type = 'button'; details.className = 'feed-details'; details.textContent = '詳細'; details.setAttribute('aria-label', d.name + 'の詳細');
         open.addEventListener('click', () => { choose(d.id, { pan: true, syncFeed: false, index }); showDialog(photoDialog); renderPhoto(); });
         details.addEventListener('click', () => { choose(d.id, { pan: true, syncFeed: false, index }); showDialog(detailsDialog); });
@@ -242,7 +227,6 @@
   function clearSelection() {
     selected = null; current = null; gallery = [];
     $('#photo-empty').hidden = false;
-    $('#map-current').hidden = true;
     $('#selection-status').textContent = '表示する場所がありません';
   }
   function renderPhoto() {
@@ -270,14 +254,8 @@
     selected = base.id; current = displaySpot(base);
     const d = current, category = categoryFor(base);
     const night = active.has('lightup') && base.categories.includes('lightup');
-    $('#selection-status').textContent = labelFor(d) + '：' + d.name;
-    if (route) {
-      const tag = $('#map-current');
-      tag.hidden = false;
-      tag.textContent = labelFor(d) + '　' + d.name;
-      tag.style.borderColor = category.color;
-    }
-    $('#spot-number').textContent = labelFor(d);
+    $('#selection-status').textContent = d.id + '：' + d.name;
+    $('#spot-number').textContent = String(d.id).padStart(2, '0');
     $('#spot-number').style.color = category.color;
     $('#spot-name').textContent = d.name;
     $('#spot-area').textContent = [d.area, category.label].filter(Boolean).join(' · ');
@@ -325,7 +303,7 @@
   }
   function controlRects() {
     const r = pane.getBoundingClientRect();
-    const rects = [...pane.querySelectorAll('.filter-toggle,.area-picker,.map-controls,.map-credit,#map-current:not([hidden])')].map(el => {
+    const rects = [...pane.querySelectorAll('.filter-toggle,.area-picker,.map-controls,.map-credit')].map(el => {
       const b = el.getBoundingClientRect();
       return { left: b.left - r.left - 3, right: b.right - r.left + 3, top: b.top - r.top - 3, bottom: b.bottom - r.top + 3 };
     });
@@ -336,7 +314,7 @@
     const groups = [];
     points.forEach(point => {
       let nearest = null, distance = 46;
-      if ((visible.length > 28 || (route && transform.k < 2)) && point.spot.id !== selected) {
+      if (visible.length > 28 && point.spot.id !== selected) {
         groups.forEach(group => {
           if (group.members.some(d => d.id === selected)) return;
           const gap = Math.hypot(point.ax - group.ax, point.ay - group.ay);
@@ -413,7 +391,7 @@
     pins.attr('class', d => 'map-pin' + (d.cluster ? ' cluster-pin' : '') + (d.selected ? ' is-selected' : ''))
       .attr('transform', d => 'translate(' + d.x + ',' + d.y + ')')
       .style('--pin-color', d => d.color).attr('role', 'button').attr('tabindex', 0)
-      .attr('aria-label', d => d.cluster ? d.members.length + '件の場所を拡大して見る' : labelFor(d.members[0]) + '. ' + d.members[0].name + 'の写真を見る')
+      .attr('aria-label', d => d.cluster ? d.members.length + '件の場所を拡大して見る' : d.members[0].id + '. ' + d.members[0].name + 'の写真を見る')
       .attr('aria-pressed', d => String(d.selected))
       .attr('data-spot-id', d => d.cluster ? null : d.members[0].id)
       .attr('data-cluster-count', d => d.cluster ? d.members.length : null)
@@ -423,7 +401,7 @@
     pins.select('.pin-ring').attr('r', d => d.hit);
     pins.select('.pin-face').attr('r', d => d.selected ? 22 : d.cluster ? 23 : 16);
     pins.select('.pin-hit').attr('r', d => d.hit);
-    pins.select('.pin-number').text(d => d.cluster ? d.members.length + '件' : labelFor(d.members[0]));
+    pins.select('.pin-number').text(d => d.cluster ? d.members.length + '件' : d.members[0].id);
     pins.filter(d => d.selected).raise();
     const used = nodes.map(d => ({ x: d.x - d.hit, y: d.y - d.hit, w: d.hit * 2, h: d.hit * 2 }));
     obstacles.forEach(r => used.push({ x: r.left, y: r.top, w: r.right - r.left, h: r.bottom - r.top }));
@@ -431,7 +409,7 @@
     for (const node of [...nodes].filter(d => !d.cluster).sort((a, b) => Number(b.selected) - Number(a.selected))) {
       if (!node.selected && transform.k < 1.8) continue;
       const spot = node.members[0];
-      const full = (!route && shortNames[spot.id]) || spot.name, name = full.length > 18 ? full.slice(0, 17) + '…' : full;
+      const full = shortNames[spot.id] || spot.name, name = full.length > 18 ? full.slice(0, 17) + '…' : full;
       const w = name.length * 11 + 4, h = 16, gap = node.hit + 7;
       const options = [
         { x: node.x + gap, y: node.y - 8, w, h }, { x: node.x - w - gap, y: node.y - 8, w, h },
@@ -489,11 +467,6 @@
   function focusSpot(d) {
     if (!hasPosition(d)) return;
     svg.interrupt();
-    if (route && d.areaKey === 'east' && (currentArea === 'all' || currentArea === 'north')) {
-      focusArea('east', false);
-    } else if (route && d.areaKey === 'north' && currentArea === 'east') {
-      focusArea('all', false);
-    }
     const q = projection([d.lon, d.lat]), p = transform.apply(q), r = viewport();
     if (p[0] > r.left && p[0] < r.right && p[1] > r.top && p[1] < r.bottom) return;
     const k = transform.k;
@@ -551,12 +524,6 @@
     for (const [layer, cls] of [['WA', 'water'], ['AdmBdry', 'boundary'], ['RdCL', 'road'], ['RailCL', 'rail'], ['RvrCL', 'river']]) {
       const data = geometry.layers && geometry.layers[layer];
       if (data) world.append('path').datum(data).attr('class', cls).attr('d', path).attr('vector-effect', 'non-scaling-stroke');
-    }
-    if (route && active.has('base')) {
-      world.selectAll('.walking-path').data(route.routes).join('path')
-        .attr('class', 'walking-path').attr('d', path).attr('fill', 'none')
-        .attr('stroke', (_, i) => i ? '#873852' : '#365d8a')
-        .attr('stroke-width', 2.7).attr('vector-effect', 'non-scaling-stroke');
     }
     ['base-labels', 'leaders', 'locations', 'pins', 'place-labels'].forEach(cls => svg.append('g').attr('class', cls));
     svg.append('path').attr('class', 'scale-line'); svg.append('text').attr('class', 'scale-label');
@@ -622,10 +589,6 @@
     });
   });
   refreshVisible();
-  if (route) {
-    const target = spots.find(d => location.hash === '#s' + d.code || location.hash === '#photo' + d.code);
-    if (target && visible.includes(target)) choose(target.id, { pan: true });
-  }
   let resizeTimer;
   new ResizeObserver(() => {
     clearTimeout(resizeTimer);

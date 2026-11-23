@@ -17,7 +17,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ec.travel.jr-central.co.jp/tp/optionalFacilities/Z000004/plans?agentCode=ex&areaCode=26&kodawari=option_theme07-exmaas&lang=ja&sort=recommend&specialCode=tokuhai&useDays=1",
       "photos": [
         {
-          "image": "gion/images/spot-A.webp",
+          "image": "images/spot-A.webp",
           "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=2691"
         }
       ]
@@ -39,7 +39,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://francois1934.com/access/",
       "photos": [
         {
-          "image": "gion/images/spot-B.webp",
+          "image": "images/spot-B.webp",
           "source": "https://tabelog.com/kyoto/A2601/A260201/26000900/"
         }
       ]
@@ -61,7 +61,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://www.soiree-kyoto.com/about/",
       "photos": [
         {
-          "image": "gion/images/spot-C.webp",
+          "image": "images/spot-C.webp",
           "source": "https://tabelog.com/kyoto/A2601/A260201/26000763/"
         }
       ]
@@ -83,7 +83,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/tourism/single01.php?category_id=2&tourism_id=1931",
       "photos": [
         {
-          "image": "gion/images/spot-01.webp",
+          "image": "images/spot-01.webp",
           "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=2&tourism_id=1931"
         }
       ]
@@ -105,7 +105,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/tourism/single01.php?category_id=8&tourism_id=689",
       "photos": [
         {
-          "image": "gion/images/spot-02.webp",
+          "image": "images/spot-02.webp",
           "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=8&tourism_id=689"
         }
       ]
@@ -127,7 +127,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://www.gion.or.jp/around/花見小路",
       "photos": [
         {
-          "image": "gion/images/spot-03.webp",
+          "image": "images/spot-03.webp",
           "source": "https://www.gion.or.jp/around/花見小路"
         }
       ]
@@ -149,7 +149,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=276",
       "photos": [
         {
-          "image": "gion/images/spot-04.webp",
+          "image": "images/spot-04.webp",
           "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=276"
         }
       ]
@@ -171,7 +171,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=493",
       "photos": [
         {
-          "image": "gion/images/spot-05.webp",
+          "image": "images/spot-05.webp",
           "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=493"
         }
       ]
@@ -193,7 +193,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "http://www.yasui-konpiragu.or.jp/",
       "photos": [
         {
-          "image": "gion/images/spot-06.webp",
+          "image": "images/spot-06.webp",
           "source": "https://commons.wikimedia.org/wiki/File:Yasui_Kompira-gu_Kyoto_Japan_paper_charm_sculpture.jpg"
         }
       ]
@@ -215,7 +215,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://coquelicotblanc.jp/",
       "photos": [
         {
-          "image": "gion/images/spot-D.webp",
+          "image": "images/spot-D.webp",
           "source": "https://tabelog.com/kyoto/A2601/A260301/26040599/"
         }
       ]
@@ -237,7 +237,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://commons.wikimedia.org/wiki/File:Multi-coloured_kukuri-zaru_talismans_at_Kongoji_Yasaka_Koshin-do_temple,_Kyoto,_Japan_(large_view).jpg",
       "photos": [
         {
-          "image": "gion/images/spot-07.webp",
+          "image": "images/spot-07.webp",
           "source": "https://commons.wikimedia.org/wiki/File:Multi-coloured_kukuri-zaru_talismans_at_Kongoji_Yasaka_Koshin-do_temple,_Kyoto,_Japan_(large_view).jpg"
         }
       ]
@@ -259,7 +259,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://commons.wikimedia.org/wiki/File:GIO_-_Yasaka_Pagoda_seen_from_Higashiyama_near_Gion,_Kyoto,_Japan,_2015.jpg",
       "photos": [
         {
-          "image": "gion/images/spot-08.webp",
+          "image": "images/spot-08.webp",
           "source": "https://commons.wikimedia.org/wiki/File:GIO_-_Yasaka_Pagoda_seen_from_Higashiyama_near_Gion,_Kyoto,_Japan,_2015.jpg"
         }
       ]
@@ -281,7 +281,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://nittodo.jp/",
       "photos": [
         {
-          "image": "gion/images/spot-09.webp",
+          "image": "images/spot-09.webp",
           "source": "https://tabelog.com/kyoto/A2601/A260201/26031312/"
         }
       ]
@@ -303,7 +303,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/tourism/single01.php?category_id=8&tourism_id=160",
       "photos": [
         {
-          "image": "gion/images/spot-10.webp",
+          "image": "images/spot-10.webp",
           "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=8&tourism_id=160"
         }
       ]
@@ -325,7 +325,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://www.kyoto-kankou.or.jp/info_search/674",
       "photos": [
         {
-          "image": "gion/images/spot-11.webp",
+          "image": "images/spot-11.webp",
           "source": "https://commons.wikimedia.org/wiki/File:Gion_-_Nineizaka_(Ninenzaka),_Kyoto,_Japan_(48923865671).jpg"
         }
       ]
@@ -347,7 +347,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/support/film/searches/detail/422",
       "photos": [
         {
-          "image": "gion/images/spot-12.webp",
+          "image": "images/spot-12.webp",
           "source": "https://commons.wikimedia.org/wiki/File:Nene-no-michi_Kyoto01n3200.jpg"
         }
       ]
@@ -369,7 +369,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/event/single.php?event_id=2221",
       "photos": [
         {
-          "image": "gion/images/spot-13.webp",
+          "image": "images/spot-13.webp",
           "source": "https://souda-kyoto.jp/guide/spot/entokuin.html"
         }
       ]
@@ -391,7 +391,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=474",
       "photos": [
         {
-          "image": "gion/images/spot-14.webp",
+          "image": "images/spot-14.webp",
           "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=474"
         }
       ]
@@ -413,7 +413,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://ja.kyoto.travel/tourism/single01.php?category_id=2&tourism_id=1169",
       "photos": [
         {
-          "image": "gion/images/spot-15.webp",
+          "image": "images/spot-15.webp",
           "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=2&tourism_id=1169"
         }
       ]
@@ -435,7 +435,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://www.chion-in.or.jp/event/event/1489/",
       "photos": [
         {
-          "image": "gion/images/spot-16.webp",
+          "image": "images/spot-16.webp",
           "source": "https://www.chion-in.or.jp/event/event/1489/"
         }
       ]
@@ -457,7 +457,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://www.kodaiji.com/saiji.html",
       "photos": [
         {
-          "image": "gion/images/spot-E.webp",
+          "image": "images/spot-E.webp",
           "source": "https://souda-kyoto.jp/blog/00557.html"
         }
       ]
@@ -479,7 +479,7 @@ window.KYOTO_ROUTE = {
       "sourceURL": "https://www.gion-yassan.com/",
       "photos": [
         {
-          "image": "gion/images/spot-F.webp",
+          "image": "images/spot-F.webp",
           "source": "https://tabelog.com/kyoto/A2601/A260301/26000268/"
         }
       ]
