@@ -1,28 +1,6 @@
 window.KYOTO_ROUTE = {
   "spots": [
     {
-      "id": 1,
-      "code": "A",
-      "name": "瑠璃光院",
-      "lat": 35.0633737855118,
-      "lon": 135.808589458466,
-      "categories": [
-        "base"
-      ],
-      "areaKey": "north",
-      "area": "八瀬",
-      "time": "10:00〜10:20 入場",
-      "summary": "書院の窓いっぱいに広がる紅葉。",
-      "visitNote": "朝の予約枠。11時ごろ山門を出て祇園へ。",
-      "sourceURL": "https://ec.travel.jr-central.co.jp/tp/optionalFacilities/Z000004/plans?agentCode=ex&areaCode=26&kodawari=option_theme07-exmaas&lang=ja&sort=recommend&specialCode=tokuhai&useDays=1",
-      "photos": [
-        {
-          "image": "images/spot-A.webp",
-          "source": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=2691"
-        }
-      ]
-    },
-    {
       "id": 2,
       "code": "B",
       "name": "フランソア喫茶室",

@@ -3,12 +3,6 @@
   const $ = s => document.querySelector(s);
   const route = window.KYOTO_ROUTE;
   const labelFor = d => d.code;
-  for (const option of [...$('#area-select').options]) {
-    if (!['all', 'east', 'north', 'custom'].includes(option.value)) option.remove();
-  }
-  $('#area-select option[value=east]').textContent = '祇園・東山';
-  $('#area-select option[value=north]').textContent = '八瀬';
-  $('#area-select option[value=all]').textContent = '行程全体';
   const categories = route.categories;
   const categoryById = new Map(categories.map(c => [c.id, c]));
   const spots = route.spots;
@@ -21,7 +15,6 @@
   const pane = $('.map-pane');
   const feed = $('#photo-feed');
   let feedItems = [], feedFrame = 0;
-  const areaSelect = $('#area-select');
   const filterDialog = $('#filter-dialog');
   const clusterDialog = $('#cluster-dialog');
   const detailsDialog = $('#details-dialog');
@@ -29,7 +22,7 @@
   const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
   const MAX_ZOOM = 32;
   const STORAGE_KEY = 'kyoto-dec1-route-genres';
-  const majorLabels = new Set(['京都駅', '出町柳駅', '嵯峨嵐山駅', '八瀬比叡山口駅', '山科駅', '二条駅', '宇治駅', '長岡京駅', '稲荷駅']);
+  const majorLabels = new Set(['京都駅', '出町柳駅', '嵯峨嵐山駅', '山科駅', '二条駅', '宇治駅', '長岡京駅', '稲荷駅']);
   let active = new Set(categories.map(c => c.id)), hideClosed = false, draft = new Set(), draftHideClosed = false;
   let visible = [], selected = null, current = null, width = 0, height = 0;
   let photoIndex = 0, gallery = [];
@@ -92,7 +85,6 @@
   }
   function setArea(key) {
     currentArea = key || 'custom';
-    areaSelect.value = currentArea;
   }
   function saveFilters() {
     try {
@@ -143,9 +135,6 @@
     $('#filter-count').textContent = visible.length + '件';
     $('#filters-open').setAttribute('aria-label', 'ジャンルを選ぶ。現在' + visible.length + '件を表示');
     $('#reset-map').setAttribute('aria-label', '現在の' + visible.length + '件が見える全体図に戻す');
-    [...areaSelect.options].forEach(option => {
-      if (!['all', 'custom'].includes(option.value)) option.disabled = !visible.some(d => d.areaKey === option.value && hasPosition(d));
-    });
     $('#map-empty').hidden = visible.length !== 0;
 
     if (visible.length) choose(visible.some(d => d.id === selected) ? selected : visible[0].id, { redraw: false });
@@ -463,11 +452,6 @@
   function focusSpot(d) {
     if (!hasPosition(d)) return;
     svg.interrupt();
-    if (d.areaKey === 'east' && (currentArea === 'all' || currentArea === 'north')) {
-      focusArea('east', false);
-    } else if (d.areaKey === 'north' && currentArea === 'east') {
-      focusArea('all', false);
-    }
     const q = projection([d.lon, d.lat]), p = transform.apply(q), r = viewport();
     if (p[0] > r.left && p[0] < r.right && p[1] > r.top && p[1] < r.bottom) return;
     const k = transform.k;
@@ -564,7 +548,6 @@
   $('#zoom-in').addEventListener('click', () => { if (zoom) { svg.interrupt().transition().duration(duration).call(zoom.scaleBy, 1.65); setArea(null); } });
   $('#zoom-out').addEventListener('click', () => { if (zoom) { svg.interrupt().transition().duration(duration).call(zoom.scaleBy, 1 / 1.65); setArea(null); } });
   $('#reset-map').addEventListener('click', () => focusArea('all'));
-  areaSelect.addEventListener('change', () => focusArea(areaSelect.value));
   $('#details-close').addEventListener('click', () => detailsDialog.close());
   [photoDialog].forEach(el => {
     let start = null, swiped = false;

@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#eeeee4">
-  <meta name="description" content="瑠璃光院から祇園・東山へ。基本ルートと16の寄り道を、写真をめくりながら地図で確認できます。">
+  <meta name="description" content="祇園四条から高台寺、安参へ。基本ルートと16の寄り道を、写真をめくりながら地図で確認できます。">
   <title>祇園・東山の寄り道地図｜12月1日 京都の街歩き</title>
   <link rel="stylesheet" href="../style.css?v=20261101-5">
   <link rel="stylesheet" href="guide.css">
   <script src="../d3.min.js" defer></script>
   <script src="../basemap.js?v=20261101-5" defer></script>
-  <script src="route.js?v=20261123-3" defer></script>
-  <script src="guide.js" defer></script>
+  <script src="route.js?v=20261123-4" defer></script>
+  <script src="guide.js?v=20261123-4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#filters-open">ジャンルを選ぶ</a>
@@ -22,23 +22,9 @@
       <div class="map-topbar">
         <button type="button" id="filters-open" class="filter-toggle" aria-haspopup="dialog" aria-controls="filter-dialog">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16M8 4v6m8 4v6"/></svg>
-          <span>ジャンル</span><span id="filter-count">22件</span>
+          <span>ジャンル</span><span id="filter-count">21件</span>
         </button>
         <a class="filter-toggle route-link" href="../">京都全域へ</a>
-        <div class="area-picker">
-          <select id="area-select" aria-label="地図のエリアを選ぶ">
-            <option value="all">全エリア</option>
-            <option value="central">中心部</option>
-            <option value="east">東山</option>
-            <option value="north">北エリア</option>
-            <option value="station">京都駅周辺</option>
-            <option value="west">嵐山</option>
-            <option value="south">伏見・醍醐</option>
-            <option value="outer">宇治・長岡京</option>
-            <option value="custom" hidden disabled>エリア</option>
-          </select>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
-        </div>
       </div>
       <div id="map-empty" class="map-empty" hidden>
         <div><p>表示する場所がありません</p><button type="button" id="empty-filters-open">ジャンルを選ぶ</button></div>
@@ -69,7 +55,7 @@
       <fieldset class="category-fieldset"><legend class="sr-only">表示するジャンルを複数選択</legend><div id="category-list"></div></fieldset>
       <label class="closed-filter"><input type="checkbox" id="hide-closed"><span>火曜定休の記載がある場所を隠す</span></label>
     </div>
-    <footer class="filter-footer"><button type="button" id="apply-filters">22件を表示</button></footer>
+    <footer class="filter-footer"><button type="button" id="apply-filters">21件を表示</button></footer>
   </dialog>
 
   <dialog id="cluster-dialog" class="details-dialog cluster-dialog" aria-labelledby="cluster-title">
