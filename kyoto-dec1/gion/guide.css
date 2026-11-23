@@ -1,0 +1,47 @@
+:root {
+  color-scheme: light;
+  font-family: "Yu Gothic", Meiryo, sans-serif;
+  color: #302e28;
+  background: #faf8f1;
+  line-height: 1.65;
+}
+* { box-sizing: border-box; }
+body { margin: auto; max-width: 1220px; padding: 0 clamp(16px, 4vw, 52px); }
+a { color: #79314e; text-underline-offset: .2em; }
+a:focus-visible { outline: 3px solid #ac5442; outline-offset: 2px; }
+header, footer { font-size: .85rem; color: #505951; padding: 18px 0; }
+header { display: flex; justify-content: space-between; border-bottom: 1px solid #c4bbac; }
+h1, h2, h3 { font-family: "Yu Mincho", "Hiragino Mincho ProN", serif; line-height: 1.35; }
+h1 { margin: 28px 0 8px; font-size: clamp(1.85rem, 4.6vw, 3.3rem); }
+h2 { margin: 0 0 6px; }
+.intro { margin: 0 0 20px; }
+.maplayout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 24px; }
+.map { position: relative; }
+.map img { display: block; width: 100%; height: auto; }
+.hot { position: absolute; width: 3.1%; height: 5%; border-radius: 50%; transform: translate(-50%,-50%); }
+.hot:hover, .hot:focus-visible { outline: 3px solid #9e4e58; background: #ffffff33; }
+.credit, footer, .refs { font-size: .8rem; }
+.credit { color: #576253; }
+.legend h2 { font-size: 1.15rem; }
+.legend p { margin: 8px 0 18px; font-size: .9rem; }
+.places { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 6px; }
+.places a { display: flex; align-items: center; gap: 6px; min-height: 35px; font-size: .86rem; color: inherit; text-decoration: none; }
+.places a:hover span { text-decoration: underline; }
+.badge { display: inline-grid; place-items: center; min-width: 1.8em; height: 1.8em; border-radius: 50%; background: #266967; color: white; font: bold .85rem/1 system-ui,sans-serif; }
+.badge.base { background: #85354e; }
+.group { margin: 48px 0; }
+.group > p { margin: 4px 0 16px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 295px), 1fr)); gap: 18px; }
+article { background: #fffdf8; border-bottom: 1px solid #a9b3a3; scroll-margin-top: 14px; }
+article:target { outline: 2px solid #85354e; }
+.photo { display: block; background: #edeae0; }
+.photo img { width: 100%; height: clamp(210px, 22vw, 275px); display: block; object-fit: contain; }
+.copy { padding: 16px; }
+h3 { font-size: 1.45rem; margin: 9px 0; }
+.copy p { margin: 6px 0; }
+.refs { margin-top: 15px; }
+footer { border-top: 1px solid #c4bbac; }
+@media (max-width: 780px) {
+  .maplayout { grid-template-columns: 1fr; gap: 6px; }
+  .places a { min-height: 44px; }
+}

@@ -116,3 +116,6 @@ button:disabled,select:disabled{cursor:default;opacity:.45}
 .map-pin.is-selected .pin-number{font-size:14px}
 @media(max-width:760px){.app-shell{grid-template-rows:minmax(230px,44dvh) minmax(0,1fr)}}
 @media(max-height:500px) and (orientation:landscape){.app-shell{grid-template-rows:minmax(0,1fr)}}
+
+.route-link{color:#78354e;text-decoration:none;background:#fff7f3}.route-link:hover{border-color:currentColor}.map-topbar .area-picker{flex-shrink:1;min-width:82px}
+@media(max-width:390px){.map-topbar{gap:4px}.map-topbar .area-picker{width:105px}}
