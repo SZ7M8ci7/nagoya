@@ -307,55 +307,27 @@
     rects.push({ left: 8, right: 112, top: height - 49, bottom: height - 21 });
     return rects;
   }
-  function placeNodes(nodes, obstacles) {
-    const simulation = d3.forceSimulation(nodes)
-      .force('x', d3.forceX(d => d.ax).strength(.32))
-      .force('y', d3.forceY(d => d.ay).strength(.32))
-      .force('collide', d3.forceCollide(d => d.hit + 1).iterations(4)).stop();
-    for (let i = 0; i < 65; i++) {
-      simulation.tick();
-      nodes.forEach(d => {
-        const minX = d.hit + 1, maxX = width - d.hit - 1, minY = d.hit + 2, maxY = height - d.hit - 4;
-        d.x = Math.max(minX, Math.min(maxX, d.x));
-        d.y = Math.max(minY, Math.min(maxY, d.y));
-        obstacles.forEach(rect => {
-          const r = { left: rect.left - d.hit, right: rect.right + d.hit, top: rect.top - d.hit, bottom: rect.bottom + d.hit };
-          if (d.x <= r.left || d.x >= r.right || d.y <= r.top || d.y >= r.bottom) return;
-          const choices = [{ x: r.left, y: d.y }, { x: r.right, y: d.y }, { x: d.x, y: r.top }, { x: d.x, y: r.bottom }]
-            .filter(p => p.x >= minX && p.x <= maxX && p.y >= minY && p.y <= maxY)
-            .sort((a, b) => Math.hypot(a.x - d.x, a.y - d.y) - Math.hypot(b.x - d.x, b.y - d.y));
-          if (choices.length) { d.x = choices[0].x; d.y = choices[0].y; }
-        });
-      });
-    }
-  }
   function drawPins() {
     if (!projection || !world) return;
-    const points = visible.filter(hasPosition).map(spot => {
-      const p = transform.apply(projection([spot.lon, spot.lat]));
-      return { spot, ax: p[0], ay: p[1] };
-    }).filter(d => d.ax > 10 && d.ax < width - 10 && d.ay > 16 && d.ay < height - 16);
+    const nodes = visible.filter(hasPosition).map(spot => {
+      const [x, y] = transform.apply(projection([spot.lon, spot.lat]));
+      const isSelected = spot.id === selected;
+      return { spot, x, y, selected: isSelected, radius: isSelected ? 5 : 1.5, color: categoryFor(spot).color };
+    }).filter(d => d.x >= 0 && d.x <= width && d.y >= 0 && d.y <= height);
     const obstacles = controlRects();
-    const nodes = points.map(point => {
-      const isSelected = point.spot.id === selected;
-      return { ...point, x: point.ax, y: point.ay, selected: isSelected,
-        color: categoryFor(point.spot).color, hit: isSelected ? 31 : 13 };
-    });
-    placeNodes(nodes, obstacles);
-    svg.select('.leaders').selectAll('path').data(nodes, d => d.spot.id).join('path').attr('class', 'leader')
-      .attr('stroke', d => d.color).attr('d', d => 'M' + d.ax + ',' + d.ay + 'L' + d.x + ',' + d.y);
-    svg.select('.locations').selectAll('circle').data(points, d => d.spot.id).join('circle').attr('class', 'location-dot')
-      .attr('cx', d => d.ax).attr('cy', d => d.ay).attr('r', 1.6).style('fill', d => categoryFor(d.spot).color);
     const pins = svg.select('.pins').selectAll('g').data(nodes, d => d.spot.id).join(enter => {
       const g = enter.append('g');
-      g.append('circle').attr('class', 'pin-ring');
       g.append('circle').attr('class', 'pin-face');
-      g.append('text').attr('class', 'pin-number');
       g.append('circle').attr('class', 'pin-hit');
       return g;
     });
     function activate(event, d) {
       event.stopPropagation();
+      if (event.type === 'click' && event.detail > 0) {
+        // On a crowded street, use the closest dot within the shared tap area.
+        const [x, y] = d3.pointer(event, svg.node());
+        d = d3.least(nodes, node => Math.hypot(node.x - x, node.y - y));
+      }
       choose(d.spot.id);
     }
     pins.attr('class', d => 'map-pin' + (d.selected ? ' is-selected' : ''))
@@ -367,18 +339,16 @@
       .on('click', activate).on('keydown', (event, d) => {
         if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activate(event, d); }
       });
-    pins.select('.pin-ring').attr('r', d => d.hit);
-    pins.select('.pin-face').attr('r', d => d.selected ? 25 : 5);
-    pins.select('.pin-hit').attr('r', d => d.hit);
-    pins.select('.pin-number').text(d => d.selected ? labelFor(d.spot) : '');
+    pins.select('.pin-face').attr('r', d => d.radius);
+    pins.select('.pin-hit').attr('r', 12);
     pins.filter(d => d.selected).raise();
-    const used = nodes.map(d => ({ x: d.x - d.hit, y: d.y - d.hit, w: d.hit * 2, h: d.hit * 2 }));
+    const used = nodes.map(d => ({ x: d.x - d.radius, y: d.y - d.radius, w: d.radius * 2, h: d.radius * 2 }));
     obstacles.forEach(r => used.push({ x: r.left, y: r.top, w: r.right - r.left, h: r.bottom - r.top }));
     const text = [];
     for (const node of nodes.filter(d => d.selected)) {
       const spot = node.spot;
       const full = spot.name, name = full.length > 18 ? full.slice(0, 17) + '…' : full;
-      const w = name.length * 11 + 4, h = 16, gap = node.hit + 7;
+      const w = name.length * 11 + 4, h = 16, gap = node.radius + 5;
       const options = [
         { x: node.x + gap, y: node.y - 8, w, h }, { x: node.x - w - gap, y: node.y - 8, w, h },
         { x: node.x - w / 2, y: node.y + gap, w, h }, { x: node.x - w / 2, y: node.y - gap - h, w, h }
@@ -471,7 +441,7 @@
         .attr('stroke', (_, i) => i ? '#873852' : '#365d8a')
         .attr('stroke-width', 2.7).attr('vector-effect', 'non-scaling-stroke');
     }
-    ['base-labels', 'leaders', 'locations', 'pins', 'place-labels'].forEach(cls => svg.append('g').attr('class', cls));
+    ['base-labels', 'pins', 'place-labels'].forEach(cls => svg.append('g').attr('class', cls));
     svg.append('path').attr('class', 'scale-line'); svg.append('text').attr('class', 'scale-label');
     zoom = d3.zoom().scaleExtent([1, MAX_ZOOM]).translateExtent([[-width, -height], [width * 2, height * 2]])
       .extent([[0, 0], [width, height]]).filter(e => e.type === 'wheel' || !e.button)

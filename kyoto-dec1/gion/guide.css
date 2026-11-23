@@ -19,5 +19,7 @@
 .photo-feed { container-type:inline-size; }
 .photo-feed::after { height:max(0px, calc(100% - max(180px, 66.6667cqw))); max-height:none; }
 
-.map-pin:not(.is-selected) .pin-face { fill:var(--pin-color);stroke:var(--paper);stroke-width:1.4; }
+.map-pin:not(.is-selected) .pin-face { fill:var(--pin-color);stroke:none;filter:none; }
+.map-pin.is-selected .pin-face { fill:var(--pin-color);stroke:var(--paper);stroke-width:1;filter:none; }
+.map-pin:focus-visible .pin-hit { stroke:#377b89;stroke-width:1.5; }
 .feed-photo:not(.is-active) .feed-image img { transform:scale(.88); }
