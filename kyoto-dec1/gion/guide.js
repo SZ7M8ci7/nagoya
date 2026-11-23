@@ -156,16 +156,16 @@
         card.style.setProperty('--spot-color', categoryFor(base).color);
         const open = document.createElement('button'); open.type = 'button'; open.className = 'feed-image';
         open.setAttribute('aria-label', d.name + 'の写真 ' + (index + 1) + '／' + photos.length + 'を全画面で表示');
-        const img = document.createElement('img'); img.src = item.image; img.alt = d.name + 'の写真 ' + (index + 1);
+        const img = document.createElement('img'); img.src = item.image; img.alt = d.name + '・' + item.note;
         img.loading = feedItems.length < 2 ? 'eager' : 'lazy'; img.decoding = 'async'; img.draggable = false;
         img.addEventListener('error', () => { card.classList.add('image-failed'); img.alt = d.name + '：写真を読み込めませんでした'; });
         open.append(img);
-        const badge = document.createElement('span'); badge.className = 'feed-count'; badge.textContent = d.time;
+        const badge = document.createElement('span'); badge.className = 'feed-count'; badge.textContent = (index + 1) + ' / ' + photos.length + '　' + d.time;
         const footer = document.createElement('div'); footer.className = 'feed-footer';
         const title = document.createElement('span'); title.className = 'feed-title'; title.textContent = labelFor(d) + '　' + d.name;
         const details = document.createElement('button'); details.type = 'button'; details.className = 'feed-details'; details.textContent = '詳細'; details.setAttribute('aria-label', d.name + 'の詳細');
         open.addEventListener('click', () => { choose(d.id, { pan: true, syncFeed: false, index }); showDialog(photoDialog); renderPhoto(); });
-        details.addEventListener('click', () => { choose(d.id, { pan: true, syncFeed: false, index }); showDialog(detailsDialog); });
+        details.addEventListener('click', () => { choose(d.id, { pan: true, syncFeed: false, index }); renderDetailGallery(); showDialog(detailsDialog); detailsDialog.scrollTop = 0; });
         footer.append(title, details); card.append(open, badge, footer);
         if (d.closedTuesday === true) {
           const warning = document.createElement('span'); warning.className = 'feed-closed'; warning.textContent = '火曜定休'; card.append(warning);
@@ -219,9 +219,29 @@
     link($('#photo-license'), item.licenseURL, item.license || '写真のライセンス ↗');
     if (photoDialog.open) $('#large-photo').src = item.image;
     $('#large-photo').alt = current.name + 'の写真 ' + (photoIndex + 1) + '／' + gallery.length;
-    $('#large-title').textContent = current.name + ' · ' + (photoIndex + 1) + ' / ' + gallery.length;
+    $('#large-title').textContent = current.name + '　' + (photoIndex + 1) + ' / ' + gallery.length + '　' + item.note;
     $('#large-caption').textContent = item.note || '';
     $('#large-prev').hidden = gallery.length < 2; $('#large-next').hidden = gallery.length < 2;
+  }
+  function renderDetailGallery() {
+    const buttons = gallery.map((item, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.setAttribute('aria-label', item.note + 'を拡大');
+      const img = document.createElement('img');
+      img.src = item.image;
+      img.alt = item.note;
+      button.append(img);
+      button.addEventListener('click', () => {
+        photoIndex = index;
+        markFeed();
+        scrollToPhoto(selected, index);
+        showDialog(photoDialog);
+        renderPhoto();
+      });
+      return button;
+    });
+    $('#detail-gallery').replaceChildren(...buttons);
   }
   function stepPhoto(direction) {
     if (gallery.length < 2) return;
@@ -234,7 +254,7 @@
     if (!base) return;
     selected = base.id; current = displaySpot(base);
     const d = current, category = categoryFor(base);
-    const night = active.has('lightup') && base.categories.includes('lightup');
+    const night = Boolean(d.lighting);
     $('#selection-status').textContent = labelFor(d) + '：' + d.name;
     const tag = $('#map-current');
     tag.hidden = false;
@@ -249,6 +269,13 @@
     markFeed();
     if (syncFeed) scrollToPhoto(d.id, photoIndex);
     paragraph('#spot-summary', d.summary);
+    paragraph('#spot-guide', d.guideText);
+    $('#night-panel').hidden = !d.lighting;
+    if (d.lighting) {
+      $('#night-hours').textContent = d.lighting.hours;
+      $('#night-note').textContent = d.lighting.detail;
+      link($('#night-source'), d.lighting.source);
+    }
     const summaryText = String(d.summary || '').trim();
     const notes = [...new Set([d.visitNote, d.locationNote, d.scheduleNote]
       .filter(Boolean).map(note => String(note).trim()).filter(note => note && note !== summaryText))];
@@ -277,9 +304,7 @@
         extras.append(makeLink(url, parsed.hostname.replace(/^www\./, '') + ' ↗', 'additional-source'));
       }
     });
-    $('#availability-note').textContent = night
-      ? '2026年12月1日のライトアップ候補です。予約・開催状況は公式案内をご確認ください。'
-      : '街歩きの候補です。12月1日の営業・拝観や予約は各公式案内をご確認ください。';
+
     if (projection && redraw) { drawPins(); if (pan) focusSpot(base); }
   }
 

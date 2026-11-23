@@ -7,3 +7,14 @@
   color:var(--ink); font-size:13px; font-weight:650; line-height:1.5;
   box-shadow:0 1px 5px #25302218; pointer-events:none;
 }
+
+#detail-gallery { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:10px 0 16px; }
+#detail-gallery button { border:0;padding:0;overflow:hidden;background:#e4e5db;border-radius:6px; }
+#detail-gallery img { width:100%;height:clamp(70px,20vw,108px);object-fit:contain;display:block; }
+.detail-label { font-size:14px;line-height:1.5;margin:12px 0 4px;color:var(--ink); }
+#night-panel { padding:12px 14px;background:#edf1ec;border-left:3px solid #3f675e;margin:14px 0; }
+#night-panel h3 { margin:0 0 6px; }
+#night-panel p, #night-panel a { font-size:13px;line-height:1.65; }
+#night-panel p { margin:6px 0; }
+.photo-feed { container-type:inline-size; }
+.photo-feed::after { height:max(0px, calc(100% - max(180px, 66.6667cqw))); max-height:none; }
