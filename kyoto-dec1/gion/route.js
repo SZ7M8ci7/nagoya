@@ -71,6 +71,114 @@ window.KYOTO_ROUTE = {
       "officialURL": "https://www.soiree-kyoto.com/"
     },
     {
+      "id": 4,
+      "code": "D",
+      "name": "コクリコブラン",
+      "lat": 34.998614637879705,
+      "lon": 135.77900948028443,
+      "categories": [
+        "base"
+      ],
+      "areaKey": "east",
+      "area": "祇園・東山",
+      "time": "15:00〜15:30ごろ",
+      "summary": "赤や緑の生地が重なる、しましまクロワッサン。",
+      "visitNote": "八坂の塔の近く。柄・味は当日の品ぞろえ次第。",
+      "sourceURL": "https://coquelicotblanc.jp/",
+      "photos": [
+        {
+          "source": "https://tabelog.com/kyoto/A2601/A260301/26040599/",
+          "image": "images/spot-D.webp",
+          "note": "しましまのクロワッサン"
+        },
+        {
+          "source": "https://tabelog.com/kyoto/A2601/A260301/26040599/",
+          "image": "../images/gallery/35-2.webp",
+          "note": "パンが並ぶショーケース"
+        },
+        {
+          "source": "https://tabelog.com/kyoto/A2601/A260301/26040599/",
+          "image": "../images/gallery/35-3.webp",
+          "note": "色の違う生地の層"
+        }
+      ],
+      "guideText": "八坂通沿いのベーカリー。ショーケースではクロワッサンを横から見ると、色の違う生地が何層にも重なっているのが分かる。平日の通常営業は10:00〜18:00。八坂庚申堂と五重塔がすぐ先なので、買い物と短い散策を一続きにできる。",
+      "officialURL": "https://www.coquelicotblanc.jp/"
+    },
+    {
+      "id": 5,
+      "code": "E",
+      "name": "高台寺",
+      "lat": 35.000397,
+      "lon": 135.781204,
+      "categories": [
+        "base"
+      ],
+      "areaKey": "east",
+      "area": "祇園・東山",
+      "time": "17:00 点灯",
+      "summary": "臥龍池の水面に、色づいた枝がもう一度映る。",
+      "visitNote": "点灯から庭をめぐり、18:30には境内の出口へ。",
+      "sourceURL": "https://www.kodaiji.com/saiji.html",
+      "photos": [
+        {
+          "source": "https://souda-kyoto.jp/blog/00557.html",
+          "image": "images/spot-E.webp",
+          "note": "灯りを映す臥龍池"
+        },
+        {
+          "source": "https://souda-kyoto.jp/blog/00557.html",
+          "image": "../images/gallery/13-2.webp",
+          "note": "夜空と紅葉"
+        },
+        {
+          "source": "https://souda-kyoto.jp/blog/00557.html",
+          "image": "../images/gallery/13-3.webp",
+          "note": "照らされた竹林"
+        }
+      ],
+      "guideText": "ねねが秀吉を弔うために開いた寺。歩くにつれて池に映る枝の角度が変わり、竹林では視線が足元の水面から頭上へ移る。17時前に入って夕景から見ることもできる。客殿の内部公開は16:30まで。庭の夜間拝観と時間が異なる。",
+      "lighting": {
+        "hours": "17:00点灯〜22:00閉門／最終受付21:30",
+        "detail": "10月23日〜12月13日。昼夜入れ替えなし。再入山には新しい券が必要。",
+        "source": "https://www.kodaiji.com/saiji"
+      }
+    },
+    {
+      "id": 6,
+      "code": "F",
+      "name": "祇園肉割烹 安参",
+      "lat": 35.00477482787477,
+      "lon": 135.7758019803489,
+      "categories": [
+        "base"
+      ],
+      "areaKey": "east",
+      "area": "祇園・東山",
+      "time": "19:00 夕食の希望時刻",
+      "summary": "箸を入れたくなる、名物の牛テール煮込み。",
+      "visitNote": "高台寺から徒歩15〜20分。席は未予約。",
+      "sourceURL": "https://www.gion-yassan.com/",
+      "photos": [
+        {
+          "source": "https://tabelog.com/kyoto/A2601/A260301/26000268/",
+          "image": "images/spot-F.webp",
+          "note": "牛テール煮込み"
+        },
+        {
+          "source": "https://tabelog.com/kyoto/A2601/A260301/26000268/",
+          "image": "../images/gallery/83-1.webp",
+          "note": "肉料理の盛り付け"
+        },
+        {
+          "source": "https://tabelog.com/kyoto/A2601/A260301/26000268/",
+          "image": "../images/gallery/83-3.webp",
+          "note": "店内の席"
+        }
+      ],
+      "guideText": "祇園で肉の部位ごとの食感を楽しむ夕食処。写真の牛テール煮込みは、切り分けた肉料理とは違い、骨まわりの身をほぐしながら味わう一皿。高台寺を18:30ごろに出ると、徒歩移動のあとに少し余裕を取れる。19時は旅程上の希望時刻。"
+    },
+    {
       "id": 7,
       "code": "01",
       "name": "南座",
@@ -327,41 +435,6 @@ window.KYOTO_ROUTE = {
         }
       ],
       "guideText": "碑に結ばれた紙は、願いを書いて納める身代わりの形代。近づくと白い岩のように見えた表面が一枚ずつの願いでできていると分かる。本殿に参拝してから碑へ。くぐる祈願の列が長ければ、拝殿と碑を見るだけの短い立ち寄りにもできる。"
-    },
-    {
-      "id": 4,
-      "code": "D",
-      "name": "コクリコブラン",
-      "lat": 34.998614637879705,
-      "lon": 135.77900948028443,
-      "categories": [
-        "base"
-      ],
-      "areaKey": "east",
-      "area": "祇園・東山",
-      "time": "15:00〜15:30ごろ",
-      "summary": "赤や緑の生地が重なる、しましまクロワッサン。",
-      "visitNote": "八坂の塔の近く。柄・味は当日の品ぞろえ次第。",
-      "sourceURL": "https://coquelicotblanc.jp/",
-      "photos": [
-        {
-          "source": "https://tabelog.com/kyoto/A2601/A260301/26040599/",
-          "image": "images/spot-D.webp",
-          "note": "しましまのクロワッサン"
-        },
-        {
-          "source": "https://tabelog.com/kyoto/A2601/A260301/26040599/",
-          "image": "../images/gallery/35-2.webp",
-          "note": "パンが並ぶショーケース"
-        },
-        {
-          "source": "https://tabelog.com/kyoto/A2601/A260301/26040599/",
-          "image": "../images/gallery/35-3.webp",
-          "note": "色の違う生地の層"
-        }
-      ],
-      "guideText": "八坂通沿いのベーカリー。ショーケースではクロワッサンを横から見ると、色の違う生地が何層にも重なっているのが分かる。平日の通常営業は10:00〜18:00。八坂庚申堂と五重塔がすぐ先なので、買い物と短い散策を一続きにできる。",
-      "officialURL": "https://www.coquelicotblanc.jp/"
     },
     {
       "id": 13,
@@ -904,79 +977,6 @@ window.KYOTO_ROUTE = {
           "note": "昼の池泉庭園"
         }
       ]
-    },
-    {
-      "id": 5,
-      "code": "E",
-      "name": "高台寺",
-      "lat": 35.000397,
-      "lon": 135.781204,
-      "categories": [
-        "base"
-      ],
-      "areaKey": "east",
-      "area": "祇園・東山",
-      "time": "17:00 点灯",
-      "summary": "臥龍池の水面に、色づいた枝がもう一度映る。",
-      "visitNote": "点灯から庭をめぐり、18:30には境内の出口へ。",
-      "sourceURL": "https://www.kodaiji.com/saiji.html",
-      "photos": [
-        {
-          "source": "https://souda-kyoto.jp/blog/00557.html",
-          "image": "images/spot-E.webp",
-          "note": "灯りを映す臥龍池"
-        },
-        {
-          "source": "https://souda-kyoto.jp/blog/00557.html",
-          "image": "../images/gallery/13-2.webp",
-          "note": "夜空と紅葉"
-        },
-        {
-          "source": "https://souda-kyoto.jp/blog/00557.html",
-          "image": "../images/gallery/13-3.webp",
-          "note": "照らされた竹林"
-        }
-      ],
-      "guideText": "ねねが秀吉を弔うために開いた寺。歩くにつれて池に映る枝の角度が変わり、竹林では視線が足元の水面から頭上へ移る。17時前に入って夕景から見ることもできる。客殿の内部公開は16:30まで。庭の夜間拝観と時間が異なる。",
-      "lighting": {
-        "hours": "17:00点灯〜22:00閉門／最終受付21:30",
-        "detail": "10月23日〜12月13日。昼夜入れ替えなし。再入山には新しい券が必要。",
-        "source": "https://www.kodaiji.com/saiji"
-      }
-    },
-    {
-      "id": 6,
-      "code": "F",
-      "name": "祇園肉割烹 安参",
-      "lat": 35.00477482787477,
-      "lon": 135.7758019803489,
-      "categories": [
-        "base"
-      ],
-      "areaKey": "east",
-      "area": "祇園・東山",
-      "time": "19:00 夕食の希望時刻",
-      "summary": "箸を入れたくなる、名物の牛テール煮込み。",
-      "visitNote": "高台寺から徒歩15〜20分。席は未予約。",
-      "sourceURL": "https://www.gion-yassan.com/",
-      "photos": [
-        {
-          "source": "https://tabelog.com/kyoto/A2601/A260301/26000268/",
-          "image": "images/spot-F.webp",
-          "note": "牛テール煮込み"
-        },
-        {
-          "source": "https://tabelog.com/kyoto/A2601/A260301/26000268/",
-          "image": "../images/gallery/83-1.webp",
-          "note": "肉料理の盛り付け"
-        },
-        {
-          "source": "https://tabelog.com/kyoto/A2601/A260301/26000268/",
-          "image": "../images/gallery/83-3.webp",
-          "note": "店内の席"
-        }
-      ],
-      "guideText": "祇園で肉の部位ごとの食感を楽しむ夕食処。写真の牛テール煮込みは、切り分けた肉料理とは違い、骨まわりの身をほぐしながら味わう一皿。高台寺を18:30ごろに出ると、徒歩移動のあとに少し余裕を取れる。19時は旅程上の希望時刻。"
     }
   ],
   "categories": [
