@@ -16,7 +16,6 @@
   const feed = $('#photo-feed');
   let feedItems = [], feedFrame = 0;
   const filterDialog = $('#filter-dialog');
-  const clusterDialog = $('#cluster-dialog');
   const detailsDialog = $('#details-dialog');
   const photoDialog = $('#photo-dialog');
   const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
@@ -101,25 +100,16 @@
       const check = document.createElement('input'); check.type = 'checkbox'; check.value = c.id; check.checked = draft.has(c.id);
       check.addEventListener('change', () => {
         if (check.checked) draft.add(c.id); else draft.delete(c.id);
-        updateDraftCount();
       });
       const swatch = document.createElement('span'); swatch.className = 'category-swatch'; swatch.style.setProperty('--category-color', c.color);
       const name = document.createElement('span'); name.className = 'category-label'; name.textContent = c.label;
-      const count = document.createElement('span'); count.className = 'category-count'; count.dataset.category = c.id;
-      label.append(check, swatch, name, count);
+      label.append(check, swatch, name);
       const only = document.createElement('button'); only.type = 'button'; only.className = 'category-only'; only.textContent = 'のみ';
       only.setAttribute('aria-label', c.label + 'のみ表示');
       only.addEventListener('click', () => { draft = new Set([c.id]); applyDraft(); });
       row.append(label, only); list.append(row);
     });
     $('#hide-closed').checked = draftHideClosed;
-    updateDraftCount();
-  }
-  function updateDraftCount() {
-    $('#apply-filters').textContent = filtered(draft, draftHideClosed).length + '件を表示';
-    document.querySelectorAll('.category-count').forEach(el => {
-      el.textContent = spots.filter(d => d.categories.includes(el.dataset.category) && !(draftHideClosed && closedFor(d, draft) === true)).length;
-    });
   }
   function openFilters() {
     draft = new Set(active); draftHideClosed = hideClosed;
@@ -132,9 +122,6 @@
   function refreshVisible() {
     visible = filtered(active, hideClosed);
     renderFeed();
-    $('#filter-count').textContent = visible.length + '件';
-    $('#filters-open').setAttribute('aria-label', 'ジャンルを選ぶ。現在' + visible.length + '件を表示');
-    $('#reset-map').setAttribute('aria-label', '現在の' + visible.length + '件が見える全体図に戻す');
     $('#map-empty').hidden = visible.length !== 0;
 
     if (visible.length) choose(visible.some(d => d.id === selected) ? selected : visible[0].id, { redraw: false });
@@ -320,37 +307,6 @@
     rects.push({ left: 8, right: 112, top: height - 49, bottom: height - 21 });
     return rects;
   }
-  function clusterNodes(points) {
-    const groups = [];
-    points.forEach(point => {
-      let nearest = null, distance = 46;
-      if ((visible.length > 28 || transform.k < 2) && point.spot.id !== selected) {
-        groups.forEach(group => {
-          if (group.members.some(d => d.id === selected)) return;
-          const gap = Math.hypot(point.ax - group.ax, point.ay - group.ay);
-          if (gap < distance) { distance = gap; nearest = group; }
-        });
-      }
-      if (nearest) {
-        const n = nearest.members.length;
-        nearest.ax = (nearest.ax * n + point.ax) / (n + 1);
-        nearest.ay = (nearest.ay * n + point.ay) / (n + 1);
-        nearest.members.push(point.spot);
-      } else groups.push({ ax: point.ax, ay: point.ay, members: [point.spot] });
-    });
-    return groups.map(group => {
-      const counts = new Map();
-      group.members.forEach(d => { const c = categoryFor(d); counts.set(c.id, (counts.get(c.id) || 0) + 1); });
-      const leading = [...counts].sort((a, b) => b[1] - a[1])[0];
-      const category = categoryById.get(leading && leading[0]) || categories[0];
-      return {
-        ...group, x: group.ax, y: group.ay,
-        key: group.members.map(d => d.id).join('-'),
-        cluster: group.members.length > 1, hit: group.members.some(d => d.id === selected) ? 29 : group.members.length > 1 ? 26 : 22,
-        color: category.color, selected: group.members.some(d => d.id === selected)
-      };
-    });
-  }
   function placeNodes(nodes, obstacles) {
     const simulation = d3.forceSimulation(nodes)
       .force('x', d3.forceX(d => d.ax).strength(.32))
@@ -380,13 +336,17 @@
       return { spot, ax: p[0], ay: p[1] };
     }).filter(d => d.ax > 10 && d.ax < width - 10 && d.ay > 16 && d.ay < height - 16);
     const obstacles = controlRects();
-    const nodes = clusterNodes(points);
+    const nodes = points.map(point => {
+      const isSelected = point.spot.id === selected;
+      return { ...point, x: point.ax, y: point.ay, selected: isSelected,
+        color: categoryFor(point.spot).color, hit: isSelected ? 31 : 13 };
+    });
     placeNodes(nodes, obstacles);
-    svg.select('.leaders').selectAll('path').data(nodes, d => d.key).join('path').attr('class', 'leader')
+    svg.select('.leaders').selectAll('path').data(nodes, d => d.spot.id).join('path').attr('class', 'leader')
       .attr('stroke', d => d.color).attr('d', d => 'M' + d.ax + ',' + d.ay + 'L' + d.x + ',' + d.y);
     svg.select('.locations').selectAll('circle').data(points, d => d.spot.id).join('circle').attr('class', 'location-dot')
       .attr('cx', d => d.ax).attr('cy', d => d.ay).attr('r', 1.6).style('fill', d => categoryFor(d.spot).color);
-    const pins = svg.select('.pins').selectAll('g').data(nodes, d => d.key).join(enter => {
+    const pins = svg.select('.pins').selectAll('g').data(nodes, d => d.spot.id).join(enter => {
       const g = enter.append('g');
       g.append('circle').attr('class', 'pin-ring');
       g.append('circle').attr('class', 'pin-face');
@@ -396,29 +356,27 @@
     });
     function activate(event, d) {
       event.stopPropagation();
-      if (d.cluster) openCluster(d); else choose(d.members[0].id);
+      choose(d.spot.id);
     }
-    pins.attr('class', d => 'map-pin' + (d.cluster ? ' cluster-pin' : '') + (d.selected ? ' is-selected' : ''))
+    pins.attr('class', d => 'map-pin' + (d.selected ? ' is-selected' : ''))
       .attr('transform', d => 'translate(' + d.x + ',' + d.y + ')')
       .style('--pin-color', d => d.color).attr('role', 'button').attr('tabindex', 0)
-      .attr('aria-label', d => d.cluster ? d.members.length + '件の場所を拡大して見る' : labelFor(d.members[0]) + '. ' + d.members[0].name + 'の写真を見る')
+      .attr('aria-label', d => labelFor(d.spot) + '. ' + d.spot.name + 'の写真を見る')
       .attr('aria-pressed', d => String(d.selected))
-      .attr('data-spot-id', d => d.cluster ? null : d.members[0].id)
-      .attr('data-cluster-count', d => d.cluster ? d.members.length : null)
+      .attr('data-spot-id', d => d.spot.id)
       .on('click', activate).on('keydown', (event, d) => {
         if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); activate(event, d); }
       });
     pins.select('.pin-ring').attr('r', d => d.hit);
-    pins.select('.pin-face').attr('r', d => d.selected ? 22 : d.cluster ? 23 : 16);
+    pins.select('.pin-face').attr('r', d => d.selected ? 25 : 5);
     pins.select('.pin-hit').attr('r', d => d.hit);
-    pins.select('.pin-number').text(d => d.cluster ? d.members.length + '件' : labelFor(d.members[0]));
+    pins.select('.pin-number').text(d => d.selected ? labelFor(d.spot) : '');
     pins.filter(d => d.selected).raise();
     const used = nodes.map(d => ({ x: d.x - d.hit, y: d.y - d.hit, w: d.hit * 2, h: d.hit * 2 }));
     obstacles.forEach(r => used.push({ x: r.left, y: r.top, w: r.right - r.left, h: r.bottom - r.top }));
     const text = [];
-    for (const node of [...nodes].filter(d => !d.cluster).sort((a, b) => Number(b.selected) - Number(a.selected))) {
-      if (!node.selected && transform.k < 1.8) continue;
-      const spot = node.members[0];
+    for (const node of nodes.filter(d => d.selected)) {
+      const spot = node.spot;
       const full = spot.name, name = full.length > 18 ? full.slice(0, 17) + '…' : full;
       const w = name.length * 11 + 4, h = 16, gap = node.hit + 7;
       const options = [
@@ -488,34 +446,6 @@
     if (!list.length) return;
     move(fitTransform(list), animate); setArea(key);
   }
-  function openCluster(node) {
-    const pts = node.members.map(d => transform.apply(projection([d.lon, d.lat])));
-    const span = Math.max(d3.max(pts, p => p[0]) - d3.min(pts, p => p[0]), d3.max(pts, p => p[1]) - d3.min(pts, p => p[1]));
-    if (transform.k >= MAX_ZOOM * .98 || span < 1) { showClusterList(node.members); return; }
-    const fitted = fitTransform(node.members, MAX_ZOOM);
-    const k = Math.min(MAX_ZOOM, Math.max(transform.k * 2.2, fitted.k));
-    if (k < transform.k * 1.08) { showClusterList(node.members); return; }
-    const r = viewport(), center = [d3.mean(node.members, d => projection([d.lon, d.lat])[0]), d3.mean(node.members, d => projection([d.lon, d.lat])[1])];
-    move(d3.zoomIdentity.translate((r.left + r.right) / 2 - center[0] * k, (r.top + r.bottom) / 2 - center[1] * k).scale(k));
-    setArea(null);
-  }
-  function showClusterList(members) {
-    const list = $('#cluster-list'); list.replaceChildren();
-    $('#cluster-count').textContent = members.length + '件から選択';
-    [...members].sort((a, b) => a.id - b.id).forEach(d => {
-      const button = document.createElement('button'); button.type = 'button';
-      button.className = 'cluster-choice' + (d.id === selected ? ' is-selected' : '');
-      button.style.setProperty('--category-color', categoryFor(d).color);
-      const number = document.createElement('span'); number.className = 'choice-number'; number.textContent = d.id;
-      const text = document.createElement('span'); text.className = 'choice-text'; text.textContent = d.name;
-      if (closedFor(d, active) === true) { const note = document.createElement('span'); note.className = 'choice-note'; note.textContent = '火曜定休'; text.append(note); }
-      button.append(number, text);
-      button.addEventListener('click', () => { clusterDialog.close(); choose(d.id, { pan: true }); });
-      list.append(button);
-    });
-    showDialog(clusterDialog);
-  }
-
   function draw({ reset = false } = {}) {
     const rect = pane.getBoundingClientRect(), w = Math.round(rect.width), h = Math.round(rect.height);
     if (w < 1 || h < 1) return;
@@ -565,9 +495,8 @@
   $('#filters-close').addEventListener('click', () => filterDialog.close());
   $('#filter-all').addEventListener('click', () => { draft = new Set(categories.map(c => c.id)); renderFilters(); });
   $('#filter-none').addEventListener('click', () => { draft.clear(); renderFilters(); });
-  $('#hide-closed').addEventListener('change', e => { draftHideClosed = e.target.checked; updateDraftCount(); });
+  $('#hide-closed').addEventListener('change', e => { draftHideClosed = e.target.checked; });
   $('#apply-filters').addEventListener('click', applyDraft);
-  $('#cluster-close').addEventListener('click', () => clusterDialog.close());
   $('#large-prev').addEventListener('click', () => stepPhoto(-1));
   $('#large-next').addEventListener('click', () => stepPhoto(1));
   $('#zoom-in').addEventListener('click', () => { if (zoom) { svg.interrupt().transition().duration(duration).call(zoom.scaleBy, 1.65); setArea(null); } });
@@ -597,7 +526,7 @@
   photoDialog.addEventListener('close', scheduleFeedSync);
   detailsDialog.addEventListener('close', scheduleFeedSync);
   new ResizeObserver(scheduleFeedSync).observe(feed);
-  [detailsDialog, filterDialog, clusterDialog, photoDialog].forEach(dialog => {
+  [detailsDialog, filterDialog, photoDialog].forEach(dialog => {
     dialog.addEventListener('click', e => {
       const r = dialog.getBoundingClientRect();
       if (e.target === dialog && (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)) dialog.close();

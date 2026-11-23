@@ -7,22 +7,22 @@
   <meta name="description" content="祇園四条から高台寺、安参へ。基本ルートと21の寄り道を、写真をめくりながら地図で確認できます。">
   <title>祇園・東山の寄り道地図｜12月1日 京都の街歩き</title>
   <link rel="stylesheet" href="../style.css?v=20261101-5">
-  <link rel="stylesheet" href="guide.css?v=20261123-5">
+  <link rel="stylesheet" href="guide.css?v=20261123-6">
   <script src="../d3.min.js" defer></script>
   <script src="../basemap.js?v=20261101-5" defer></script>
   <script src="route.js?v=20261123-5" defer></script>
-  <script src="guide.js?v=20261123-5" defer></script>
+  <script src="guide.js?v=20261123-6" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#filters-open">ジャンルを選ぶ</a>
   <h1 class="sr-only">祇園・東山の寄り道地図と写真</h1>
   <main class="app-shell" data-layout="visual-first">
     <section class="map-pane" aria-label="京都の街歩き地図">
-      <svg id="map" role="group" aria-label="番号のピンを選ぶと写真を表示します"></svg>
+      <svg id="map" role="group" aria-label="スポットを選ぶと写真を表示します"></svg>
       <div class="map-topbar">
         <button type="button" id="filters-open" class="filter-toggle" aria-haspopup="dialog" aria-controls="filter-dialog">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16M8 4v6m8 4v6"/></svg>
-          <span>ジャンル</span><span id="filter-count">26件</span>
+          <span>ジャンル</span>
         </button>
         <a class="filter-toggle route-link" href="../">京都全域へ</a>
       </div>
@@ -55,15 +55,7 @@
       <fieldset class="category-fieldset"><legend class="sr-only">表示するジャンルを複数選択</legend><div id="category-list"></div></fieldset>
       <label class="closed-filter"><input type="checkbox" id="hide-closed"><span>火曜定休の記載がある場所を隠す</span></label>
     </div>
-    <footer class="filter-footer"><button type="button" id="apply-filters">26件を表示</button></footer>
-  </dialog>
-
-  <dialog id="cluster-dialog" class="details-dialog cluster-dialog" aria-labelledby="cluster-title">
-    <header class="details-header">
-      <div><p id="cluster-count" class="spot-area"></p><h2 id="cluster-title">近くの場所</h2></div>
-      <button type="button" id="cluster-close" class="dialog-close" aria-label="場所の一覧を閉じる"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
-    </header>
-    <div id="cluster-list" class="cluster-list"></div>
+    <footer class="filter-footer"><button type="button" id="apply-filters">選択を適用</button></footer>
   </dialog>
 
   <dialog id="details-dialog" class="details-dialog" aria-labelledby="spot-name">
